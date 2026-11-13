@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ScanSure | Create Account</title>
+
+    <style>
+
+        /* =========================================
+           GLOBAL
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green: #16a34a;
+            --green-dark: #15803d;
+            --dark-green: #064e3b;
+            --dark-green-2: #14532d;
+
+            --text: #1f3028;
+            --muted: #66756d;
+
+            --border: #d6e3da;
+
+            --white: #ffffff;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: "Segoe UI", Arial, sans-serif;
+
+            /* OUTER BACKGROUND */
+            background: #8fae9c;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px 20px;
+        }
+
+
+        /* =========================================
+           MAIN CARD
+        ========================================= */
+
+        .register-card {
+            width: min(1120px, 100%);
+
+            min-height: 650px;
+
+            background: white;
+
+            display: grid;
+
+            grid-template-columns: 44% 56%;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 25px 60px rgba(6, 78, 59, 0.20);
+        }
+
+
+        /* =========================================
+           LEFT BRAND SECTION
+        ========================================= */
+
+        .brand-side {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #064e3b,
+                    #14532d
+                );
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding: 50px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            color: white;
+        }
+
+
+        .brand-side::before {
+            content: "";
+
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.045);
+
+            top: -150px;
+            left: -140px;
+        }
+
+
+        .brand-side::after {
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+            height: 280px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.035);
+
+            bottom: -130px;
+            right: -90px;
+        }
+
+
+        .brand-content {
+            position: relative;
+
+            z-index: 2;
+
+            width: 100%;
+        }
+
+
+        /* =========================================
+           LOGO
+        ========================================= */
+
+        .logo {
+            width: 110px;
+            height: 110px;
+
+            margin: 0 auto 25px;
+
+            color: #4ade80;
+
+            filter:
+                drop-shadow(
+                    0 8px 15px
+                    rgba(0, 0, 0, 0.18)
+                );
+        }
+
+
+        .logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        /* =========================================
+           BRAND NAME
+        ========================================= */
+
+        .brand-title {
+            color: white;
+
+            font-size: 43px;
+
+            line-height: 1.1;
+
+            font-weight: 750;
+
+            letter-spacing: -1px;
+        }
+
+
+        .brand-title span {
+            display: block;
+
+            color: #86efac;
+
+            font-size: 21px;
+
+            font-weight: 650;
+
+            margin-top: 10px;
+
+            letter-spacing: 0;
+        }
+
+
+        .tagline {
+            margin-top: 18px;
+
+            color: #d1fae5;
+
+            font-size: 18px;
+
+            letter-spacing: 0.3px;
+        }
+
+
+        /* =========================================
+           SIMPLE SECURITY ILLUSTRATION
+        ========================================= */
+
+        .illustration {
+            width: 290px;
+            height: 140px;
+
+            margin: 50px auto 0;
+
+            position: relative;
+
+            opacity: 0.16;
+        }
+
+
+        .mini-shield {
+            position: absolute;
+
+            left: 85px;
+            top: 5px;
+
+            width: 100px;
+            height: 115px;
+
+            border: 9px solid #86efac;
+
+            clip-path:
+                polygon(
+                    50% 0%,
+                    95% 18%,
+                    90% 65%,
+                    50% 100%,
+                    10% 65%,
+                    5% 18%
+                );
+        }
+
+
+        .check {
+            position: absolute;
+
+            left: 111px;
+            top: 48px;
+
+            width: 45px;
+            height: 25px;
+
+            border-left:
+                8px solid #86efac;
+
+            border-bottom:
+                8px solid #86efac;
+
+            transform: rotate(-45deg);
+        }
+
+
+        .scan-lines {
+            position: absolute;
+
+            right: 5px;
+            top: 28px;
+
+            width: 55px;
+        }
+
+
+        .scan-lines div {
+            height: 7px;
+
+            background: #86efac;
+
+            margin-bottom: 10px;
+
+            border-radius: 5px;
+        }
+
+
+        /* =========================================
+           RIGHT FORM SECTION
+        ========================================= */
+
+        .form-side {
+
+            background: #ffffff;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 45px 60px;
+        }
+
+
+        .form-wrapper {
+            width: 100%;
+
+            max-width: 490px;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .form-header {
+            margin-bottom: 27px;
+        }
+
+
+        .form-header h1 {
+            font-size: 36px;
+
+            color: var(--dark-green-2);
+
+            margin-bottom: 7px;
+
+            letter-spacing: -1px;
+        }
+
+
+        .form-header p {
+            color: var(--muted);
+
+            font-size: 16px;
+        }
+
+
+        /* =========================================
+           FORM GROUP
+        ========================================= */
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+
+            font-weight: 650;
+
+            color: var(--text);
+        }
+
+
+        /* =========================================
+           INPUT BOX
+        ========================================= */
+
+        .input-box {
+
+            height: 52px;
+
+            width: 100%;
+
+            border:
+                1.5px solid var(--border);
+
+            border-radius: 9px;
+
+            display: flex;
+
+            align-items: center;
+
+            background: white;
+
+            transition: 0.25s;
+        }
+
+
+        .input-box:focus-within {
+
+            border-color: var(--green);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(22, 163, 74, 0.09);
+        }
+
+
+        .input-icon {
+
+            width: 50px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            color: #718277;
+        }
+
+
+        .input-icon svg {
+
+            width: 20px;
+            height: 20px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+        }
+
+
+        .input-box input {
+
+            flex: 1;
+
+            height: 100%;
+
+            border: none;
+
+            outline: none;
+
+            font-size: 15px;
+
+            color: var(--text);
+
+            padding-right: 10px;
+
+            background: transparent;
+        }
+
+
+        .input-box input::placeholder {
+            color: #8b9a91;
+        }
+
+
+        /* =========================================
+           PASSWORD TOGGLE
+        ========================================= */
+
+        .password-toggle {
+
+            width: 48px;
+
+            height: 100%;
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            color: #718277;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .password-toggle:hover {
+            color: var(--green);
+        }
+
+
+        .password-toggle svg {
+
+            width: 21px;
+            height: 21px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+        }
+
+
+        /* =========================================
+           TERMS
+        ========================================= */
+
+        .terms {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 8px;
+
+            color: #5c6d63;
+
+            font-size: 13px;
+
+            margin: 8px 0 20px;
+
+            line-height: 1.4;
+        }
+
+
+        .terms input {
+
+            width: 17px;
+            height: 17px;
+
+            margin-top: 1px;
+
+            accent-color: var(--green);
+
+            cursor: pointer;
+
+            flex-shrink: 0;
+        }
+
+
+        .terms a {
+
+            color: var(--green);
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================================
+           REGISTER BUTTON
+        ========================================= */
+
+        .register-btn {
+
+            width: 100%;
+
+            height: 55px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #16a34a,
+                    #15803d
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 650;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(22, 163, 74, 0.22);
+
+            transition: 0.25s;
+        }
+
+
+        .register-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px
+                rgba(22, 163, 74, 0.30);
+        }
+
+
+        .register-btn svg {
+
+            width: 20px;
+            height: 20px;
+
+            fill: none;
+
+            stroke: white;
+
+            stroke-width: 2;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+
+            transition: 0.25s;
+        }
+
+
+        .register-btn:hover svg {
+            transform: translateX(4px);
+        }
+
+
+        /* =========================================
+           DIVIDER
+        ========================================= */
+
+        .divider {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            margin: 22px 0 20px;
+        }
+
+
+        .divider span {
+
+            height: 1px;
+
+            background: #dce6df;
+
+            flex: 1;
+        }
+
+
+        .divider p {
+
+            color: #66776c;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           LOGIN LINK
+        ========================================= */
+
+        .login-link {
+
+            text-align: center;
+
+            color: #53665a;
+
+            font-size: 14px;
+        }
+
+
+        .login-link a {
+
+            color: var(--green);
+
+            font-weight: 650;
+
+            text-decoration: none;
+
+            margin-left: 4px;
+        }
+
+
+        .login-link a:hover {
+
+            color: var(--green-dark);
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        footer {
+
+            margin-top: 20px;
+
+            color: #52655a;
+
+            font-size: 13px;
+
+            text-align: center;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .register-card {
+
+                grid-template-columns: 1fr;
+
+                max-width: 550px;
+            }
+
+
+            .brand-side {
+
+                min-height: 320px;
+
+                padding: 35px;
+            }
+
+
+            .brand-title {
+                font-size: 36px;
+            }
+
+
+            .logo {
+
+                width: 85px;
+                height: 85px;
+
+                margin-bottom: 15px;
+            }
+
+
+            .illustration {
+                display: none;
+            }
+
+
+            .form-side {
+                padding: 40px 35px;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            body {
+                padding: 15px;
+            }
+
+
+            .register-card {
+                border-radius: 15px;
+            }
+
+
+            .brand-side {
+                min-height: 280px;
+            }
+
+
+            .form-side {
+                padding: 32px 22px;
+            }
+
+
+            .form-header h1 {
+                font-size: 29px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         REGISTER CARD
+    ========================================== -->
+
+    <div class="register-card">
+
+
+        <!-- =====================================
+             LEFT BRAND SECTION
+        ====================================== -->
+
+        <section class="brand-side">
+
+            <div class="brand-content">
+
+
+                <!-- Shield Logo -->
+
+                <div class="logo">
+
+                    <svg viewBox="0 0 100 100">
+
+                        <path
+                            d="M50 7 L82 19 V43
+                               C82 65 69 82 50 92
+                               C31 82 18 65 18 43
+                               V19 Z"
+
+                            fill="none"
+
+                            stroke="currentColor"
+
+                            stroke-width="6"
+                        />
+
+                        <path
+                            d="M35 48 L46 59 L67 36"
+
+                            fill="none"
+
+                            stroke="currentColor"
+
+                            stroke-width="6"
+
+                            stroke-linecap="round"
+
+                            stroke-linejoin="round"
+                        />
+
+                    </svg>
+
+                </div>
+
+
+                <!-- Website Name -->
+
+                <h2 class="brand-title">
+
+                    ScanSure
+
+                    <span>
+                        Fake Product Detector
+                    </span>
+
+                </h2>
+
+
+                <p class="tagline">
+                    Verify. Trust. Stay Safe.
+                </p>
+
+
+                <!-- Illustration -->
+
+                <div class="illustration">
+
+                    <div class="mini-shield"></div>
+
+                    <div class="check"></div>
+
+                    <div class="scan-lines">
+
+                        <div></div>
+                        <div></div>
+                        <div></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================
+             RIGHT REGISTER SECTION
+        ====================================== -->
+
+        <section class="form-side">
+
+            <div class="form-wrapper">
+
+
+                <!-- Header -->
+
+                <div class="form-header">
+
+                    <h1>
+                        Create Account
+                    </h1>
+
+                    <p>
+                        Register to start verifying products
+                    </p>
+
+                </div>
+
+
+
+                <!-- REGISTER FORM -->
+
+                <form id="registerForm" method="POST" action="/register">
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <circle
+                                        cx="12"
+                                        cy="8"
+                                        r="4"
+                                    />
+
+                                    <path
+                                        d="M4 21c0-4 3.5-7 8-7s8 3 8 7"
+                                    />
+
+                                </svg>
+
+                            </span>
+
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <rect
+                                        x="3"
+                                        y="5"
+                                        width="18"
+                                        height="14"
+                                        rx="2"
+                                    />
+
+                                    <path
+                                        d="M3 7l9 6 9-6"
+                                    />
+
+                                </svg>
+
+                            </span>
+
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <rect
+                                        x="5"
+                                        y="10"
+                                        width="14"
+                                        height="10"
+                                        rx="2"
+                                    />
+
+                                    <path
+                                        d="M8 10V7a4 4 0 0 1 8 0v3"
+                                    />
+
+                                    <circle
+                                        cx="12"
+                                        cy="15"
+                                        r="1"
+                                    />
+
+                                </svg>
+
+                            </span>
+
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Create a password"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="togglePassword('password', this)"
+                            >
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <path
+                                        d="M2 12s3.5-6 10-6
+                                           10 6 10 6-3.5 6-10 6
+                                           S2 12 2 12Z"
+                                    />
+
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="3"
+                                    />
+
+                                </svg>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <rect
+                                        x="5"
+                                        y="10"
+                                        width="14"
+                                        height="10"
+                                        rx="2"
+                                    />
+
+                                    <path
+                                        d="M8 10V7a4 4 0 0 1 8 0v3"
+                                    />
+
+                                    <path
+                                        d="M9 15l2 2 4-4"
+                                    />
+
+                                </svg>
+
+                            </span>
+
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Confirm your password"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                onclick="togglePassword('confirmPassword', this)"
+                            >
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <path
+                                        d="M2 12s3.5-6 10-6
+                                           10 6 10 6-3.5 6-10 6
+                                           S2 12 2 12Z"
+                                    />
+
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="3"
+                                    />
+
+                                </svg>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- TERMS -->
+
+                    <label class="terms">
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required
+                        >
+
+                        <span>
+                            I agree to the
+                            <a href="#">
+                                Terms & Conditions
+                            </a>
+                            and
+                            <a href="#">
+                                Privacy Policy
+                            </a>.
+                        </span>
+
+                    </label>
+
+
+
+                    <!-- REGISTER BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="register-btn"
+                    >
+
+                        Create Account
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="M5 12h14" />
+
+                            <path
+                                d="m13 6 6 6-6 6"
+                            />
+
+                        </svg>
+
+                    </button>
+
+                </form>
+
+
+
+                <!-- DIVIDER -->
+
+                <div class="divider">
+
+                    <span></span>
+
+                    <p>
+                        or
+                    </p>
+
+                    <span></span>
+
+                </div>
+
+
+
+                <!-- LOGIN LINK -->
+
+                <p class="login-link">
+
+                    Already have an account?
+
+                    <a href="/login">
+                        Login
+                    </a>
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer>
+
+        © 2026 ScanSure. All rights reserved.
+
+    </footer>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+   <script>
+
+    /* =====================================
+       SHOW / HIDE PASSWORD
+    ====================================== */
+
+    function togglePassword(fieldId, button) {
+
+        const field =
+            document.getElementById(fieldId);
+
+        if (field.type === "password") {
+
+            field.type = "text";
+
+        } else {
+
+            field.type = "password";
+
+        }
+    }
+
+
+    /* =====================================
+       REGISTER FORM VALIDATION
+    ====================================== */
+
+    document
+        .getElementById("registerForm")
+        .addEventListener(
+            "submit",
+            function(event) {
+
+                const name =
+                    document
+                    .getElementById("name")
+                    .value
+                    .trim();
+
+                const email =
+                    document
+                    .getElementById("email")
+                    .value
+                    .trim();
+
+                const password =
+                    document
+                    .getElementById("password")
+                    .value;
+
+                const confirmPassword =
+                    document
+                    .getElementById("confirmPassword")
+                    .value;
+
+                const terms =
+                    document
+                    .getElementById("terms")
+                    .checked;
+
+
+                /* Check password */
+
+                if (password !== confirmPassword) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "Passwords do not match."
+                    );
+
+                    return;
+                }
+
+
+                /* Check terms */
+
+                if (!terms) {
+
+                    event.preventDefault();
+
+                    alert(
+                        "Please accept the Terms & Conditions."
+                    );
+
+                    return;
+                }
+
+
+                /*
+                    Everything is correct.
+
+                    DO NOT use event.preventDefault()
+                    here.
+
+                    Form will submit to Flask:
+                    /register
+
+                    Flask will save the user
+                    in MySQL and redirect
+                    to user_dashboard.
+                */
+
+            }
+        );
+
+</script>
+</body>
+</html>

@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScanSure | My Profile</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-green: #064e3b;
+            --dark-green-2: #14532d;
+            --green: #16a34a;
+            --green-light: #4ade80;
+            --light-green: #dcfce7;
+            --pale-green: #f0fdf4;
+            --text: #183027;
+            --muted: #68776f;
+            --white: #ffffff;
+            --border: #dce7df;
+            --outer-bg: #8fae9c;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--outer-bg);
+            min-height: 100vh;
+            color: var(--text);
+        }
+
+        /* APP CONTAINER */
+        .app {
+            width: 96%;
+            max-width: 1500px;
+            min-height: 94vh;
+            margin: 3vh auto;
+            background: #f7faf8;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 25px 60px rgba(6, 78, 59, 0.22);
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            background: linear-gradient(145deg, #064e3b, #14532d);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 15px;
+            transition: width 0.3s ease, padding 0.3s ease;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 5px 10px 30px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            color: #4ade80;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text h2 {
+            font-size: 23px;
+            line-height: 1;
+            color: white;
+        }
+
+        .logo-text h2 span {
+            color: #4ade80;
+        }
+
+        .logo-text p {
+            font-size: 11px;
+            color: #d1fae5;
+            margin-top: 5px;
+        }
+
+        /* NAVIGATION */
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .nav-link {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0 15px;
+            color: #e4f4e9;
+            text-decoration: none;
+            border-radius: 9px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .nav-link svg {
+            width: 21px;
+            height: 21px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.13);
+            color: white;
+            border-right: 4px solid #4ade80;
+        }
+
+        /* MAIN SECTION */
+        .main {
+            flex: 1;
+            min-width: 0;
+            background: #f7faf8;
+        }
+
+        /* TOPBAR */
+        .topbar {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+
+        .menu-btn {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: var(--dark-green);
+        }
+
+        .menu-btn svg {
+            width: 25px;
+            height: 25px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .top-right {
+            display: flex;
+            align-items: center;
+            gap: 23px;
+        }
+
+        .notification {
+            position: relative;
+            color: var(--dark-green);
+            cursor: pointer;
+        }
+
+        .notification svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .badge {
+            position: absolute;
+            top: -7px;
+            right: -8px;
+            background: #dc2626;
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* PROFILE DROPDOWN */
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px;
+        }
+
+        .avatar {
+            width: 39px;
+            height: 39px;
+            border-radius: 50%;
+            background: var(--light-green);
+            color: var(--dark-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .profile-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .profile svg {
+            width: 17px;
+            height: 17px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 52px;
+            right: 0;
+            width: 190px;
+            background: white;
+            border: 1px solid #dce7df;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            z-index: 9999;
+        }
+
+        .profile-dropdown.show {
+            display: block;
+        }
+
+        .profile-dropdown a {
+            display: block;
+            padding: 13px 16px;
+            color: #183027;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .profile-dropdown a:hover {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        /* CONTENT */
+        .content {
+            padding: 30px;
+        }
+
+        .breadcrumb {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .breadcrumb span {
+            color: var(--dark-green);
+            font-weight: 600;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 29px;
+            color: var(--dark-green-2);
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* PROFILE LAYOUT */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.5fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .profile-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(6, 78, 59, 0.04);
+        }
+
+        .big-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            color: var(--dark-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            font-weight: 700;
+            border: 5px solid #f0fdf4;
+        }
+
+        .profile-card h2 {
+            color: var(--dark-green-2);
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .profile-card .email {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .verified {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--light-green);
+            color: #15803d;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 25px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #edf2ee;
+        }
+
+        .card-header h2 {
+            font-size: 18px;
+            color: var(--dark-green-2);
+        }
+
+        .edit-btn {
+            border: 1px solid #bbf7d0;
+            background: #f0fdf4;
+            color: var(--green);
+            padding: 8px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .edit-btn:hover {
+            background: var(--light-green);
+        }
+
+        /* FORM STYLING */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            color: #52665b;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0 13px;
+            font-size: 14px;
+            color: var(--text);
+            background: #fafcfb;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--green);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.08);
+        }
+
+        .form-group input:disabled {
+            color: #68776f;
+            cursor: not-allowed;
+            background: #f5f7f6;
+        }
+
+        .actions {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #edf2ee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .cancel-btn {
+            padding: 11px 20px;
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--muted);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .save-btn {
+            padding: 11px 22px;
+            border: none;
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 6px 15px rgba(22, 163, 74, 0.20);
+        }
+
+        .save-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* ACCOUNT STATS */
+        .account-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .mini-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .mini-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            background: var(--light-green);
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .mini-card h3 {
+            color: var(--dark-green-2);
+            font-size: 21px;
+        }
+
+        .mini-card p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        /* TOGGLE CLASSES */
+        .app.sidebar-hidden .sidebar {
+            width: 0;
+            padding-left: 0;
+            padding-right: 0;
+            overflow: hidden;
+        }
+
+        .app.sidebar-hidden .main {
+            width: 100%;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 75px;
+            }
+
+            .logo-text,
+            .nav-link span {
+                display: none;
+            }
+
+            .logo-area {
+                justify-content: center;
+                padding: 5px 0 30px;
+            }
+
+            .nav-link {
+                justify-content: center;
+                padding: 0;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .account-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app" id="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo-area">
+            <div class="logo-icon">
+                <svg viewBox="0 0 100 100">
+                    <path d="M50 7 L82 19 V43 C82 65 69 82 50 92 C31 82 18 65 18 43 V19 Z" fill="none" stroke="currentColor" stroke-width="6"/>
+                    <path d="M35 48 L46 59 L67 36" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="logo-text">
+                <h2>Scan<span>Sure</span></h2>
+                <p>Fake Product Detector</p>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="/user_dashboard" class="nav-link">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 11.5L12 4l9 7.5"/>
+                    <path d="M5 10v10h14V10"/>
+                    <path d="M9 20v-6h6v6"/>
+                </svg>
+                <span>Dashboard</span>
+            </a>
+            <a href="/product_scan" class="nav-link">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+                    <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+                    <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+                    <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span>Scan Product</span>
+            </a>
+            <a href="/scan_history" class="nav-link">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 12a9 9 0 1 0 3-6.7"/>
+                    <path d="M3 4v6h6"/>
+                    <path d="M12 7v5l3 2"/>
+                </svg>
+                <span>History</span>
+            </a>
+            <a href="/report_product" class="nav-link">
+                <svg viewBox="0 0 24 24">
+                    <path d="M5 21V4"/>
+                    <path d="M5 5h13l-2 4 2 4H5"/>
+                </svg>
+                <span>Report Product</span>
+            </a>
+            <a href="/about_us" class="nav-link">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 11v5"/>
+                    <path d="M12 8h.01"/>
+                </svg>
+                <span>About Us</span>
+            </a>
+            <a href="/contact" class="nav-link">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="M3 7l9 6 9-6"/>
+                </svg>
+                <span>Contact Us</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <main class="main">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <button class="menu-btn" id="menuBtn" type="button">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 6h16"/>
+                    <path d="M4 12h16"/>
+                    <path d="M4 18h16"/>
+                </svg>
+            </button>
+
+            <div class="top-right">
+                <div class="notification">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+                        <path d="M10 21h4"/>
+                    </svg>
+                    <span class="badge">3</span>
+                </div>
+
+                <div class="profile-wrapper">
+                    <button class="profile" id="profileBtn" type="button">
+                        <div class="avatar">
+                            {{ name[0]|upper }}
+                        </div>
+                        <span class="profile-name">
+                            {{ name }}
+                        </span>
+                        <svg viewBox="0 0 24 24">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="/profile">👤 My Profile</a>
+                        <a href="/logout">🚪 Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <div class="breadcrumb">
+                Home &nbsp;›&nbsp; <span>My Profile</span>
+            </div>
+
+            <div class="page-header">
+                <div>
+                    <h1>My Profile</h1>
+                    <p>Manage your account information and profile details.</p>
+                </div>
+            </div>
+
+            <section class="profile-grid">
+                <!-- PROFILE CARD -->
+                <div class="profile-card">
+                    <div class="big-avatar">
+                        {{ name[0]|upper }}
+                    </div>
+                    <h2>{{ name }}</h2>
+                    <p class="email">{{ email }}</p>
+                    <div class="verified">
+                        ✓ Verified Account
+                    </div>
+                </div>
+
+                <!-- PERSONAL INFO FORM -->
+                <div class="info-card">
+                    <div class="card-header">
+                        <h2>Personal Information</h2>
+                        <button type="button" class="edit-btn" onclick="enableEditing()">
+                            ✎ Edit Profile
+                        </button>
+                    </div>
+
+                    <form method="POST" action="/profile" id="profileForm">
+                        <div class="form-grid">
+                            <!-- NAME -->
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" name="name" id="name" value="{{ name }}" disabled required>
+                            </div>
+
+                            <!-- EMAIL -->
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" name="email" id="email" value="{{ email }}" disabled required>
+                            </div>
+
+                            <!-- PHONE -->
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="text" name="phone" id="phone" placeholder="Enter phone number" value="{{ phone if phone else '' }}" disabled>
+                            </div>
+
+                            <!-- USER ID (READ-ONLY) -->
+                            <div class="form-group">
+                                <label for="user_id">User ID</label>
+                                <input type="text" id="user_id" value="{{ user_id if user_id else 'USR-88421' }}" disabled>
+                            </div>
+                        </div>
+
+                        <!-- ACTION BUTTONS -->
+                        <div class="actions" id="formActions" style="display: none;">
+                            <button type="button" class="cancel-btn" onclick="cancelEditing()">Cancel</button>
+                            <button type="submit" class="save-btn">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- STATS SECTION -->
+            <div class="account-stats">
+                <div class="mini-card">
+                    <div class="mini-icon">🔍</div>
+                    <div>
+                        <h3>{{ total_scans if total_scans else 0 }}</h3>
+                        <p>Total Scans</p>
+                    </div>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-icon">🛡️</div>
+                    <div>
+                        <h3>{{ authentic_count if authentic_count else 0 }}</h3>
+                        <p>Authentic Items</p>
+                    </div>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-icon">🚨</div>
+                    <div>
+                        <h3>{{ reports_count if reports_count else 0 }}</h3>
+                        <p>Reports Filed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- JAVASCRIPT FOR INTERACTIVITY -->
+<script>
+    // Sidebar Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const app = document.getElementById('app');
+
+    menuBtn.addEventListener('click', () => {
+        app.classList.toggle('sidebar-hidden');
+    });
+
+    // Profile Dropdown Toggle
+    const profileBtn = document.getElementById('profileBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+
+    profileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle('show');
+    });
+
+    document.addEventListener('click', () => {
+        profileDropdown.classList.remove('show');
+    });
+
+    // Enable / Disable Form Editing
+    const editableInputs = [document.getElementById('name'), document.getElementById('email'), document.getElementById('phone')];
+    const formActions = document.getElementById('formActions');
+
+    function enableEditing() {
+        editableInputs.forEach(input => input.removeAttribute('disabled'));
+        formActions.style.display = 'flex';
+    }
+
+    function cancelEditing() {
+        editableInputs.forEach(input => input.setAttribute('disabled', 'true'));
+        formActions.style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

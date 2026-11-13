@@ -1,0 +1,2467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ScanSure | Admin Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --green: #16a34a;
+            --green-light: #22c55e;
+            --green-dark: #15803d;
+            --dark-green: #064e3b;
+            --dark-green-2: #14532d;
+
+            --bg: #eef5f0;
+            --card: rgba(255, 255, 255, 0.88);
+            --white: #ffffff;
+            --text: #10251b;
+            --muted: #6b7d73;
+
+            --border: rgba(22, 101, 52, 0.10);
+            --shadow: 0 15px 45px rgba(6, 78, 59, 0.09);
+            --radius: 22px;
+
+            --sidebar-width: 270px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background:
+                radial-gradient(circle at 85% 5%, rgba(34, 197, 94, 0.12), transparent 25%),
+                radial-gradient(circle at 10% 90%, rgba(6, 78, 59, 0.08), transparent 28%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button,
+        a {
+            font-family: inherit;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background:
+                linear-gradient(160deg, #032c21 0%, #064e3b 48%, #0b6042 100%);
+            color: white;
+            padding: 25px 18px;
+            z-index: 1000;
+            overflow: hidden;
+            transition: 0.35s ease;
+            box-shadow: 15px 0 40px rgba(2, 44, 33, 0.15);
+        }
+
+        .sidebar::before {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(34, 197, 94, 0.10);
+            top: -100px;
+            right: -100px;
+        }
+
+        .sidebar::after {
+            content: "";
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.06);
+            bottom: -60px;
+            left: -60px;
+        }
+
+        .sidebar-hidden {
+            transform: translateX(-100%);
+        }
+
+        /* Logo */
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 5px 10px 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #22c55e, #15803d);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.25);
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .logo-text {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: #6ee7a0;
+        }
+
+        /* Sidebar */
+
+        .menu-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.45);
+            padding: 10px 14px;
+            margin-top: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 14px;
+            margin: 5px 0;
+            border-radius: 13px;
+            color: rgba(255,255,255,0.68);
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.25s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .nav-link svg {
+            width: 19px;
+            height: 19px;
+            flex-shrink: 0;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            background: rgba(255,255,255,0.10);
+            transform: translateX(3px);
+        }
+
+        .nav-link.active {
+            background:
+                linear-gradient(90deg,
+                rgba(34,197,94,0.24),
+                rgba(255,255,255,0.07));
+            box-shadow: inset 3px 0 0 #4ade80;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 20px;
+            z-index: 3;
+        }
+
+        .security-card {
+            border: 1px solid rgba(255,255,255,0.09);
+            background: rgba(255,255,255,0.06);
+            border-radius: 17px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .security-top {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .security-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 12px #4ade80;
+        }
+
+        .security-top strong {
+            font-size: 12px;
+        }
+
+        .security-card p {
+            font-size: 10px;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.55);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            transition: 0.35s ease;
+        }
+
+        /* =========================
+           TOPBAR
+        ========================= */
+
+        .topbar {
+            height: 76px;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.74);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .top-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-btn {
+            width: 40px;
+            height: 40px;
+            border: 0;
+            border-radius: 12px;
+            background: white;
+            color: var(--dark-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(6,78,59,0.08);
+            transition: 0.25s;
+        }
+
+        .menu-btn:hover {
+            transform: translateY(-2px);
+            background: #f0fdf4;
+        }
+
+        .top-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .top-subtitle {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .top-right {
+            display: flex;
+            align-items: center;
+            gap: 17px;
+        }
+
+        .notification {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: #466157;
+            box-shadow: 0 6px 20px rgba(6,78,59,0.06);
+            cursor: pointer;
+        }
+
+        .notification svg {
+            width: 19px;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #ef4444;
+            border: 2px solid white;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 13px;
+            background:
+                linear-gradient(135deg, #064e3b, #22c55e);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 13px;
+            box-shadow: 0 6px 18px rgba(6,78,59,0.18);
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .profile-info span {
+            font-size: 10px;
+            color: var(--muted);
+        }
+
+        .profile-menu {
+            position: absolute;
+            top: 53px;
+            right: 0;
+            width: 170px;
+            background: white;
+            border-radius: 15px;
+            padding: 8px;
+            box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+            border: 1px solid var(--border);
+            display: none;
+        }
+
+        .profile-menu.show {
+            display: block;
+            animation: menuIn 0.2s ease;
+        }
+
+        @keyframes menuIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-menu a {
+            display: block;
+            padding: 10px;
+            font-size: 12px;
+            border-radius: 9px;
+        }
+
+        .profile-menu a:hover {
+            background: #f0fdf4;
+            color: var(--green-dark);
+        }
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            padding: 32px;
+            max-width: 1600px;
+            margin: auto;
+        }
+
+        .page-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .eyebrow {
+            color: var(--green-dark);
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            font-size: 10px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .page-heading h1 {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 30px;
+            letter-spacing: -1px;
+        }
+
+        .page-heading p {
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .date-badge {
+            padding: 10px 14px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 11px;
+            color: #587066;
+            box-shadow: var(--shadow);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 230px;
+            border-radius: 27px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 25px;
+            background:
+                linear-gradient(100deg,
+                rgba(3,44,33,0.98) 0%,
+                rgba(6,78,59,0.94) 55%,
+                rgba(20,83,45,0.72) 100%);
+            box-shadow: 0 20px 55px rgba(6,78,59,0.16);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.08);
+            right: 70px;
+            top: -180px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.07);
+            right: -80px;
+            bottom: -160px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            padding: 32px 35px;
+            width: 62%;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 11px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.09);
+            border: 1px solid rgba(255,255,255,0.10);
+            color: #a7f3c1;
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 17px;
+        }
+
+        .hero-tag span {
+            width: 6px;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #4ade80;
+        }
+
+        .hero h2 {
+            color: white;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 27px;
+            line-height: 1.25;
+            max-width: 570px;
+            letter-spacing: -0.8px;
+        }
+
+        .hero p {
+            color: rgba(255,255,255,0.62);
+            font-size: 12px;
+            line-height: 1.7;
+            max-width: 510px;
+            margin-top: 10px;
+        }
+
+        .hero-visual {
+            position: absolute;
+            right: 7%;
+            top: 25px;
+            width: 250px;
+            height: 190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-shield {
+            width: 130px;
+            height: 150px;
+            filter: drop-shadow(0 18px 25px rgba(0,0,0,0.25));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-9px);
+            }
+        }
+
+        .hero-orbit {
+            position: absolute;
+            width: 205px;
+            height: 205px;
+            border: 1px dashed rgba(134,239,172,0.35);
+            border-radius: 50%;
+            animation: rotate 16s linear infinite;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .orbit-dot {
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 15px #4ade80;
+            top: 20px;
+            left: 95px;
+        }
+
+        /* =========================
+           STAT CARDS
+        ========================= */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 17px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s ease;
+            backdrop-filter: blur(15px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(6,78,59,0.13);
+        }
+
+        .stat-card::after {
+            content: "";
+            position: absolute;
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            background: rgba(34,197,94,0.07);
+            right: -25px;
+            bottom: -25px;
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-icon {
+            width: 43px;
+            height: 43px;
+            border-radius: 13px;
+            background: #ecfdf3;
+            color: var(--green-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon svg {
+            width: 20px;
+        }
+
+        .trend {
+            font-size: 9px;
+            font-weight: 800;
+            padding: 5px 8px;
+            border-radius: 30px;
+            background: #ecfdf3;
+            color: #15803d;
+        }
+
+        .trend.warning {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .stat-number {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 27px;
+            font-weight: 800;
+            margin-top: 18px;
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        /* =========================
+           GRID
+        ========================= */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.8fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,0.85);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(15px);
+        }
+
+        .card-header {
+            padding: 21px 22px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .card-subtitle {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .view-all {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--green-dark);
+            padding: 8px 10px;
+            border-radius: 9px;
+        }
+
+        .view-all:hover {
+            background: #ecfdf3;
+        }
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            font-size: 9px;
+            color: #8a9a92;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 800;
+            padding: 13px 22px;
+            background: rgba(240,253,244,0.35);
+        }
+
+        td {
+            padding: 14px 22px;
+            border-top: 1px solid rgba(0,0,0,0.045);
+            font-size: 11px;
+            vertical-align: middle;
+        }
+
+        tr {
+            transition: 0.2s;
+        }
+
+        tbody tr:hover {
+            background: rgba(240,253,244,0.55);
+        }
+
+        .product-cell {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 180px;
+        }
+
+        .product-img {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green-dark);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-name {
+            font-weight: 700;
+            color: #1b3026;
+        }
+
+        .product-type {
+            font-size: 9px;
+            color: #8a9a92;
+            margin-top: 3px;
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-avatar {
+            width: 27px;
+            height: 27px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #d1fae5, #bbf7d0);
+            color: #166534;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .brand {
+            color: #63776c;
+            font-size: 10px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 9px;
+            border-radius: 30px;
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .status::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .genuine {
+            background: #ecfdf3;
+            color: #15803d;
+        }
+
+        .genuine::before {
+            background: #22c55e;
+        }
+
+        .fake {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .fake::before {
+            background: #ef4444;
+        }
+
+        .pending {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .pending::before {
+            background: #f97316;
+        }
+
+        /* =========================
+           RIGHT CARDS
+        ========================= */
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        /* Quick Actions */
+
+        .actions {
+            padding: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 11px;
+        }
+
+        .action {
+            padding: 15px;
+            border: 1px solid rgba(6,78,59,0.07);
+            border-radius: 15px;
+            background: rgba(255,255,255,0.72);
+            transition: 0.25s ease;
+        }
+
+        .action:hover {
+            background: #f0fdf4;
+            transform: translateY(-3px);
+            border-color: rgba(22,163,74,0.18);
+        }
+
+        .action-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 11px;
+            background: #ecfdf3;
+            color: var(--green-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .action-icon svg {
+            width: 17px;
+        }
+
+        .action strong {
+            display: block;
+            font-size: 10px;
+        }
+
+        .action span {
+            display: block;
+            color: var(--muted);
+            font-size: 8px;
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+
+        /* Summary */
+
+        .summary-body {
+            padding: 21px;
+        }
+
+        .summary-item {
+            margin-bottom: 17px;
+        }
+
+        .summary-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+            font-size: 10px;
+        }
+
+        .summary-info span:first-child {
+            color: #61746a;
+        }
+
+        .summary-info strong {
+            color: #173227;
+        }
+
+        .progress {
+            height: 7px;
+            background: #edf3ef;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #16a34a, #4ade80);
+        }
+
+        .progress-orange {
+            background: linear-gradient(90deg, #f97316, #fb923c);
+        }
+
+        .progress-red {
+            background: linear-gradient(90deg, #dc2626, #f87171);
+        }
+
+        /* System Status */
+
+        .system-status {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 16px;
+            background:
+                linear-gradient(135deg, #052e20, #0b6042);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .system-status::after {
+            content: "";
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: rgba(74,222,128,0.08);
+            right: -40px;
+            top: -40px;
+        }
+
+        .system-status-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .status-left .security-dot {
+            width: 8px;
+            height: 8px;
+        }
+
+        .status-left strong {
+            font-size: 11px;
+        }
+
+        .system-status p {
+            margin-top: 8px;
+            color: rgba(255,255,255,0.52);
+            font-size: 9px;
+            line-height: 1.6;
+        }
+
+        .status-time {
+            color: #86efac;
+            font-size: 8px;
+        }
+
+        /* =========================
+           MINI STAT ROW
+        ========================= */
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 11px;
+            padding: 18px;
+        }
+
+        .mini-box {
+            padding: 14px;
+            background: #f7faf8;
+            border-radius: 14px;
+        }
+
+        .mini-box span {
+            display: block;
+            color: var(--muted);
+            font-size: 8px;
+        }
+
+        .mini-box strong {
+            display: block;
+            font-size: 17px;
+            margin-top: 5px;
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty-state {
+            padding: 35px 20px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .empty-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 14px;
+            background: #ecfdf3;
+            color: var(--green-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+        }
+
+        .empty-state p {
+            font-size: 11px;
+            margin-top: 10px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 1150px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                width: 70%;
+            }
+
+            .hero-visual {
+                right: 3%;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .topbar {
+                padding: 0 18px;
+            }
+
+            .content {
+                padding: 22px 16px;
+            }
+
+            .profile-info {
+                display: none;
+            }
+
+            .hero {
+                min-height: 310px;
+            }
+
+            .hero-content {
+                width: 100%;
+                padding: 28px;
+            }
+
+            .hero-visual {
+                opacity: 0.25;
+                right: 0;
+                bottom: -20px;
+                top: auto;
+            }
+
+            .page-heading {
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .date-badge {
+                display: none;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h2 {
+                font-size: 23px;
+            }
+
+            .top-title,
+            .top-subtitle {
+                display: none;
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+
+            .mini-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .page-heading h1 {
+                font-size: 25px;
+            }
+        }
+    
+
+/* =========================================================
+   SHARED SCANSURE APP SHELL — MATCH USER DASHBOARD
+========================================================= */
+:root {
+    --green: #0b7a3b;
+    --green-bright: #16a34a;
+    --dark-green: #043b2c;
+    --dark-green-2: #075c32;
+    --light-green: #dcfce7;
+    --pale-green: #f4fbf6;
+    --text: #173126;
+    --muted: #6b7b73;
+    --border: #d9e7de;
+    --surface: #ffffff;
+    --surface-soft: #f7faf8;
+    --shadow-sm: 0 4px 16px rgba(4,59,44,.06);
+    --shadow-md: 0 12px 30px rgba(4,59,44,.09);
+    --sidebar-width: 258px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,.16), transparent 30%),
+        radial-gradient(circle at 90% 90%, rgba(4,59,44,.13), transparent 32%),
+        #7f9d8b;
+    color: #173126;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.app {
+    width: 96%;
+    max-width: 1540px;
+    min-height: 94vh;
+    margin: 3vh auto;
+    background: var(--surface-soft);
+    border-radius: 24px;
+    display: flex;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.35);
+    box-shadow: 0 28px 70px rgba(4,59,44,.24);
+    transition: .3s ease;
+}
+
+.sidebar {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 258px;
+    height: auto;
+    min-height: 94vh;
+    flex: 0 0 258px;
+    padding: 24px 14px 18px;
+    background:
+        radial-gradient(circle at 80% 8%, rgba(74,222,128,.10), transparent 24%),
+        linear-gradient(160deg, #043b2c 0%, #064a31 48%, #075c32 100%);
+    color: #fff;
+    z-index: 10;
+    overflow: hidden;
+    box-shadow: none;
+    transition: width .3s ease, flex-basis .3s ease, padding .3s ease, transform .3s ease;
+}
+
+.main {
+    margin-left: 0;
+    width: calc(100% - 258px);
+    min-width: 0;
+    min-height: 94vh;
+    flex: 1;
+    transition: width .3s ease, margin .3s ease;
+}
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(247,250,248,.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+}
+
+.content { padding: 30px; }
+
+.sidebar-hidden .sidebar {
+    width: 0;
+    flex-basis: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sidebar-hidden .main { width: 100%; }
+
+.hero,
+.stat-card,
+.panel,
+.action-card,
+.summary-card,
+.table-container,
+.info-card {
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-card,
+.panel,
+.action-card,
+.summary-card,
+.table-container,
+.info-card {
+    background: #fff;
+}
+
+.nav-link { transition: .2s ease; }
+.nav-link:hover { background: rgba(255,255,255,.10); }
+.nav-link.active {
+    background: rgba(255,255,255,.16);
+    box-shadow: inset 3px 0 #86efac;
+}
+
+button, input, select, textarea { font: inherit; }
+
+@media (max-width: 800px) {
+    .app {
+        width: 100%;
+        min-height: 100vh;
+        margin: 0;
+        border-radius: 0;
+    }
+    .sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        min-height: 100vh;
+        width: 258px;
+        flex-basis: 258px;
+        transform: translateX(-105%);
+        box-shadow: 12px 0 35px rgba(4,59,44,.18);
+    }
+    .sidebar.mobile-open { transform: translateX(0); }
+    .main { width: 100%; min-height: 100vh; }
+    .content { padding: 22px 16px; }
+}
+
+@media (max-width: 550px) {
+    .content { padding: 16px 12px; }
+}
+
+
+/* ===== Sidebar + toggle corrections ===== */
+.app#appShell { position: relative; transform: none; }
+.app#appShell .sidebar {
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+    min-height: 94vh;
+    width: 258px;
+    flex: 0 0 258px;
+    transform: none;
+    padding: 24px 14px 18px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.app#appShell .main { margin-left: 0 !important; width: auto; min-width: 0; flex: 1 1 auto; }
+.app#appShell.sidebar-hidden { transform: none !important; }
+.app#appShell.sidebar-hidden .sidebar {
+    width: 0 !important;
+    min-width: 0 !important;
+    flex-basis: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border: 0;
+    overflow: hidden;
+}
+.app#appShell.sidebar-hidden .main { width: 100%; flex: 1 1 100%; }
+.app#appShell .sidebar .nav-link { display: flex; align-items: center; gap: 11px; width: 100%; }
+.app#appShell .sidebar .nav-link.active { background: rgba(255,255,255,.16); box-shadow: inset 3px 0 #86efac; }
+#menuBtn { cursor: pointer; border: 0; }
+@media (max-width: 800px) {
+    .app#appShell { overflow: hidden; }
+    .app#appShell .sidebar {
+        position: absolute !important;
+        top: 0 !important; left: 0 !important; bottom: 0 !important;
+        width: 258px !important; min-height: 100% !important; height: 100% !important;
+        flex: 0 0 258px !important; z-index: 1000;
+        transform: translateX(-105%);
+        box-shadow: 12px 0 35px rgba(4,59,44,.18);
+    }
+    .app#appShell .sidebar.mobile-open { transform: translateX(0) !important; }
+    .app#appShell.sidebar-hidden .sidebar { width: 258px !important; flex-basis: 258px !important; }
+    .app#appShell .main { width: 100% !important; flex: 1 1 100%; }
+}
+
+</style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <div class="app" id="appShell">
+
+<aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="none"
+                    stroke="white" stroke-width="2">
+                    <path d="M12 3L20 6V11C20 16.5 16.5 20 12 21C7.5 20 4 16.5 4 11V6L12 3Z"/>
+                    <path d="M8 12L10.5 14.5L16 9"/>
+                </svg>
+            </div>
+
+            <div class="logo-text">
+                Scan<span>Sure</span>
+            </div>
+
+        </div>
+
+
+        <div class="menu-title">Overview</div>
+
+        <a href="/admin_dashboard" class="nav-link active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+            </svg>
+            Dashboard
+        </a>
+
+        <div class="menu-title">Management</div>
+
+        <a href="/manage_users" class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21V19C17 16.8 15.2 15 13 15H6C3.8 15 2 16.8 2 19V21"/>
+                <circle cx="9.5" cy="7" r="4"/>
+                <path d="M22 21V19C22 17.2 20.8 15.7 19 15.2"/>
+                <path d="M16 3.1C17.6 3.6 18.7 5.1 18.7 7C18.7 8.9 17.6 10.4 16 10.9"/>
+            </svg>
+            Manage Users
+        </a>
+
+        <a href="/admin_product_scans" class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M7 7H10"/>
+                <path d="M7 11H17"/>
+                <path d="M7 15H17"/>
+                <path d="M7 19H12"/>
+            </svg>
+            Product Scans
+        </a>
+
+        <a href="/admin_reports" class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z"/>
+                <path d="M14 2V8H20"/>
+                <path d="M8 13H16"/>
+                <path d="M8 17H13"/>
+            </svg>
+            Reports
+        </a>
+
+        <a href="/message" class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 11.5C21 16.2 16.9 20 12 20C10.7 20 9.4 19.8 8.3 19.4L4 21L5.2 17.3C3.8 15.8 3 13.8 3 11.5C3 6.8 7.1 3 12 3C16.9 3 21 6.8 21 11.5Z"/>
+            </svg>
+            Messages
+        </a>
+
+        <div class="menu-title">Account</div>
+
+        <a href="/logout" class="nav-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 17L15 12L10 7"/>
+                <path d="M15 12H3"/>
+                <path d="M21 19V5C21 3.9 20.1 3 19 3H12"/>
+            </svg>
+            Logout
+        </a>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="security-card">
+
+                <div class="security-top">
+                    <div class="security-dot"></div>
+                    <strong>Security System Active</strong>
+                </div>
+
+                <p>
+                    ScanSure monitoring services are running normally.
+                    Your verification system is protected.
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="top-left">
+
+                <button class="menu-btn" id="menuBtn">
+
+                    <svg width="19" height="19" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 6H20"/>
+                        <path d="M4 12H20"/>
+                        <path d="M4 18H20"/>
+                    </svg>
+
+                </button>
+
+                <div>
+                    <div class="top-title">ScanSure Control Center</div>
+                    <div class="top-subtitle">
+                        Fake Product Detection & Verification System
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="top-right">
+
+                <div class="notification">
+
+                    <svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 006 8C6 15 3 15 3 17H21C21 15 18 15 18 8"/>
+                        <path d="M10 21H14"/>
+                    </svg>
+
+                    <span class="notification-badge"></span>
+
+                </div>
+
+
+                <div class="profile" id="profile">
+
+                    <div class="avatar">
+                        {{ admin_name[:1]|upper if admin_name else "A" }}
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>{{ admin_name or "Administrator" }}</strong>
+                        <span>System Administrator</span>
+                    </div>
+
+                    <svg width="14" height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M6 9L12 15L18 9"/>
+                    </svg>
+
+
+                    <div class="profile-menu" id="profileMenu">
+
+                        <a href="/admin_dashboard">
+                            Dashboard
+                        </a>
+
+                        <a href="/logout">
+                            Logout
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <section class="content">
+
+
+            <!-- PAGE HEADER -->
+
+            <div class="page-heading">
+
+                <div>
+                    <div class="eyebrow">
+                        System Overview
+                    </div>
+
+                    <h1>Admin Dashboard</h1>
+
+                    <p>
+                        Monitor product verification, users and system activity.
+                    </p>
+                </div>
+
+                <div class="date-badge" id="currentDate">
+                    Loading date...
+                </div>
+
+            </div>
+
+
+            <!-- HERO -->
+
+            <section class="hero">
+
+                <div class="hero-content">
+
+                    <div class="hero-tag">
+                        <span></span>
+                        AI SECURITY MONITORING
+                    </div>
+
+                    <h2>
+                        Protecting consumers from
+                        counterfeit products.
+                    </h2>
+
+                    <p>
+                        Manage product verification, monitor suspicious
+                        activity and keep the ScanSure ecosystem secure
+                        from one powerful control center.
+                    </p>
+
+                </div>
+
+
+                <div class="hero-visual">
+
+                    <div class="hero-orbit">
+                        <div class="orbit-dot"></div>
+                    </div>
+
+                    <svg class="hero-shield"
+                        viewBox="0 0 120 140"
+                        fill="none">
+
+                        <path
+                            d="M60 5L108 23V57C108 91 87 119 60 134C33 119 12 91 12 57V23L60 5Z"
+                            fill="url(#shieldGradient)"
+                            stroke="#86efac"
+                            stroke-width="2"/>
+
+                        <path
+                            d="M38 69L52 83L84 49"
+                            stroke="white"
+                            stroke-width="7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"/>
+
+                        <defs>
+                            <linearGradient id="shieldGradient"
+                                x1="20"
+                                y1="15"
+                                x2="95"
+                                y2="120"
+                                gradientUnits="userSpaceOnUse">
+
+                                <stop stop-color="#22c55e"/>
+                                <stop offset="1" stop-color="#064e3b"/>
+
+                            </linearGradient>
+                        </defs>
+
+                    </svg>
+
+                </div>
+
+            </section>
+
+
+            <!-- STATISTICS -->
+
+            <div class="stats-grid">
+
+
+                <!-- USERS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+
+                            <svg viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2">
+
+                                <path d="M17 21V19C17 16.8 15.2 15 13 15H6C3.8 15 2 16.8 2 19V21"/>
+                                <circle cx="9.5" cy="7" r="4"/>
+                                <path d="M22 21V19C22 17.2 20.8 15.7 19 15.2"/>
+                                <path d="M16 3.1C17.6 3.6 18.7 5.1 18.7 7"/>
+                            </svg>
+
+                        </div>
+
+                        <span class="trend">ACTIVE</span>
+
+                    </div>
+
+                    <div class="stat-number">
+                        {{ total_users }}
+                    </div>
+
+                    <div class="stat-label">
+                        Registered Users
+                    </div>
+
+                </div>
+
+
+                <!-- SCANS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+
+                            <svg viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2">
+
+                                <path d="M3 7V5C3 3.9 3.9 3 5 3H7"/>
+                                <path d="M17 3H19C20.1 3 21 3.9 21 5V7"/>
+                                <path d="M21 17V19C21 20.1 20.1 21 19 21H17"/>
+                                <path d="M7 21H5C3.9 21 3 20.1 3 19V17"/>
+                                <path d="M7 12H17"/>
+                            </svg>
+
+                        </div>
+
+                        <span class="trend">TOTAL</span>
+
+                    </div>
+
+                    <div class="stat-number">
+                        {{ total_scans }}
+                    </div>
+
+                    <div class="stat-label">
+                        Product Scans
+                    </div>
+
+                </div>
+
+
+                <!-- FAKE -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+
+                            <svg viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2">
+
+                                <path d="M12 3L20 6V11C20 16.5 16.5 20 12 21C7.5 20 4 16.5 4 11V6L12 3Z"/>
+                                <path d="M8.5 8.5L15.5 15.5"/>
+                                <path d="M15.5 8.5L8.5 15.5"/>
+
+                            </svg>
+
+                        </div>
+
+                        <span class="trend warning">ALERT</span>
+
+                    </div>
+
+                    <div class="stat-number">
+                        {{ fake_count }}
+                    </div>
+
+                    <div class="stat-label">
+                        Fake Products Detected
+                    </div>
+
+                </div>
+
+
+                <!-- PENDING -->
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon">
+
+                            <svg viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2">
+
+                                <circle cx="12" cy="12" r="9"/>
+                                <path d="M12 7V12L15 14"/>
+                            </svg>
+
+                        </div>
+
+                        <span class="trend warning">REVIEW</span>
+
+                    </div>
+
+                    <div class="stat-number">
+                        {{ pending_count }}
+                    </div>
+
+                    <div class="stat-label">
+                        Pending Verification
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DASHBOARD GRID -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- RECENT SCANS -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <div class="card-title">
+                                Recent Product Scans
+                            </div>
+
+                            <div class="card-subtitle">
+                                Latest verification activity
+                            </div>
+                        </div>
+
+                        <a href="/admin_product_scans"
+                            class="view-all">
+                            View all →
+                        </a>
+
+                    </div>
+
+
+                    <div class="table-wrap">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Product</th>
+                                    <th>User</th>
+                                    <th>Brand</th>
+                                    <th>Result</th>
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                {% if recent_scans %}
+
+                                {% for scan in recent_scans %}
+
+                                <tr>
+
+                                    <td>
+
+                                        <div class="product-cell">
+
+                                            <div class="product-img">
+
+                                                <svg width="18"
+                                                    height="18"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2">
+
+                                                    <rect x="4"
+                                                        y="3"
+                                                        width="16"
+                                                        height="18"
+                                                        rx="2"/>
+
+                                                    <path d="M8 7H16"/>
+                                                    <path d="M8 11H16"/>
+                                                    <path d="M8 15H13"/>
+
+                                                </svg>
+
+                                            </div>
+
+                                            <div>
+
+                                                <div class="product-name">
+                                                    {{ scan.product_name }}
+                                                </div>
+
+                                                <div class="product-type">
+                                                    Product verification
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="user-cell">
+
+                                            <div class="user-avatar">
+                                                {{ (scan.user_name or "U")[:1]|upper }}
+                                            </div>
+
+                                            <span>
+                                                {{ scan.user_name or "Unknown" }}
+                                            </span>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <span class="brand">
+                                            {{ scan.brand or "-" }}
+                                        </span>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        {% if scan.result|lower == "genuine" %}
+
+                                        <span class="status genuine">
+                                            Genuine
+                                        </span>
+
+                                        {% elif scan.result|lower == "fake" %}
+
+                                        <span class="status fake">
+                                            Fake
+                                        </span>
+
+                                        {% else %}
+
+                                        <span class="status pending">
+                                            {{ scan.result }}
+                                        </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                                {% else %}
+
+                                <tr>
+
+                                    <td colspan="4">
+
+                                        <div class="empty-state">
+
+                                            <div class="empty-icon">
+
+                                                <svg width="21"
+                                                    height="21"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2">
+
+                                                    <circle cx="12"
+                                                        cy="12"
+                                                        r="9"/>
+
+                                                    <path d="M8 12H16"/>
+
+                                                </svg>
+
+                                            </div>
+
+                                            <p>
+                                                No recent scans available.
+                                            </p>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                                {% endif %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RIGHT COLUMN -->
+
+                <div class="right-column">
+
+
+                    <!-- QUICK ACTIONS -->
+
+                    <div class="card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <div class="card-title">
+                                    Quick Actions
+                                </div>
+
+                                <div class="card-subtitle">
+                                    Manage your system
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="actions">
+
+
+                            <a href="/manage_users"
+                                class="action">
+
+                                <div class="action-icon">
+
+                                    <svg viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2">
+
+                                        <path d="M17 21V19C17 16.8 15.2 15 13 15H6C3.8 15 2 16.8 2 19V21"/>
+                                        <circle cx="9.5"
+                                            cy="7"
+                                            r="4"/>
+
+                                    </svg>
+
+                                </div>
+
+                                <strong>Manage Users</strong>
+
+                                <span>
+                                    View and manage accounts
+                                </span>
+
+                            </a>
+
+
+                            <a href="/admin_product_scans"
+                                class="action">
+
+                                <div class="action-icon">
+
+                                    <svg viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2">
+
+                                        <path d="M3 7V5C3 3.9 3.9 3 5 3H7"/>
+                                        <path d="M17 3H19C20.1 3 21 3.9 21 5V7"/>
+                                        <path d="M21 17V19C21 20.1 20.1 21 19 21H17"/>
+                                        <path d="M7 21H5C3.9 21 3 20.1 3 19V17"/>
+                                        <path d="M7 12H17"/>
+
+                                    </svg>
+
+                                </div>
+
+                                <strong>Product Scans</strong>
+
+                                <span>
+                                    Review scan activity
+                                </span>
+
+                            </a>
+
+
+                            <a href="/admin_reports"
+                                class="action">
+
+                                <div class="action-icon">
+
+                                    <svg viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2">
+
+                                        <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8Z"/>
+                                        <path d="M14 2V8H20"/>
+                                        <path d="M8 13H16"/>
+                                        <path d="M8 17H13"/>
+
+                                    </svg>
+
+                                </div>
+
+                                <strong>View Reports</strong>
+
+                                <span>
+                                    Review reported products
+                                </span>
+
+                            </a>
+
+
+                            <a href="/message"
+                                class="action">
+
+                                <div class="action-icon">
+
+                                    <svg viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2">
+
+                                        <path d="M21 11.5C21 16.2 16.9 20 12 20C10.7 20 9.4 19.8 8.3 19.4L4 21L5.2 17.3C3.8 15.8 3 13.8 3 11.5C3 6.8 7.1 3 12 3C16.9 3 21 6.8 21 11.5Z"/>
+
+                                    </svg>
+
+                                </div>
+
+                                <strong>Messages</strong>
+
+                                <span>
+                                    Communicate with users
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SYSTEM SUMMARY -->
+
+                    <div class="card">
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <div class="card-title">
+                                    System Summary
+                                </div>
+
+                                <div class="card-subtitle">
+                                    Verification overview
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="summary-body">
+
+
+                            <div class="summary-item">
+
+                                <div class="summary-info">
+
+                                    <span>Genuine Products</span>
+
+                                    <strong>
+                                        {{ genuine_count }}
+                                    </strong>
+
+                                </div>
+
+                                <div class="progress">
+
+                                    <div class="progress-bar"
+                                        style="width: 82%;">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="summary-item">
+
+                                <div class="summary-info">
+
+                                    <span>Fake Products</span>
+
+                                    <strong>
+                                        {{ fake_count }}
+                                    </strong>
+
+                                </div>
+
+                                <div class="progress">
+
+                                    <div class="progress-bar progress-red"
+                                        style="width: 35%;">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="summary-item">
+
+                                <div class="summary-info">
+
+                                    <span>Pending Verification</span>
+
+                                    <strong>
+                                        {{ pending_count }}
+                                    </strong>
+
+                                </div>
+
+                                <div class="progress">
+
+                                    <div class="progress-bar progress-orange"
+                                        style="width: 20%;">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mini-grid">
+
+                                <div class="mini-box">
+
+                                    <span>Total Reports</span>
+
+                                    <strong>
+                                        {{ total_reports }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="mini-box">
+
+                                    <span>Messages</span>
+
+                                    <strong>
+                                        {{ total_messages }}
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="mini-box">
+
+                                    <span>Scans</span>
+
+                                    <strong>
+                                        {{ total_scans }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SYSTEM ACTIVE -->
+
+                            <div class="system-status">
+
+                                <div class="system-status-top">
+
+                                    <div class="status-left">
+
+                                        <div class="security-dot"></div>
+
+                                        <strong>
+                                            System Active
+                                        </strong>
+
+                                    </div>
+
+                                    <span class="status-time">
+                                        LIVE
+                                    </span>
+
+                                </div>
+
+                                <p>
+                                    ScanSure verification services are
+                                    operating normally.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        const sidebar = document.getElementById("sidebar");
+        const appShell = document.getElementById("appShell");
+        const menuBtn = document.getElementById("menuBtn");
+
+        if (menuBtn && sidebar && appShell) {
+            menuBtn.setAttribute("type", "button");
+            menuBtn.addEventListener("click", function (event) {
+                event.preventDefault();
+                if (window.matchMedia("(max-width: 800px)").matches) {
+                    sidebar.classList.toggle("mobile-open");
+                } else {
+                    appShell.classList.toggle("sidebar-hidden");
+                }
+            });
+
+            window.addEventListener("resize", function () {
+                if (window.matchMedia("(min-width: 801px)").matches) {
+                    sidebar.classList.remove("mobile-open");
+                } else {
+                    appShell.classList.remove("sidebar-hidden");
+                }
+            });
+        }
+
+
+        /* Profile Dropdown */
+
+        const profile = document.getElementById("profile");
+        const profileMenu = document.getElementById("profileMenu");
+
+        if (profile && profileMenu) {
+            profile.addEventListener("click", (event) => {
+                event.stopPropagation();
+                profileMenu.classList.toggle("show");
+            });
+        }
+
+
+        document.addEventListener("click", () => {
+            if (profileMenu) profileMenu.classList.remove("show");
+        });
+
+
+        /* Current Date */
+
+        const dateElement =
+            document.getElementById("currentDate");
+
+        const today = new Date();
+
+        if (dateElement) {
+            dateElement.textContent = today.toLocaleDateString("en-IN", {
+                weekday: "short", day: "2-digit", month: "short", year: "numeric"
+            });
+        }
+
+
+        /* Close mobile sidebar after clicking navigation */
+
+        document.querySelectorAll(".nav-link").forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                if (window.innerWidth <= 800) {
+                    sidebar.classList.remove("mobile-open");
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

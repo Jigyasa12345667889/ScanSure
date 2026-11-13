@@ -1,0 +1,4956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ScanSure | Scan Product</title>
+
+
+    <style>
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        :root {
+
+            --dark-green: #064e3b;
+            --dark-green-2: #14532d;
+
+            --green: #16a34a;
+
+            --light-green: #dcfce7;
+            --pale-green: #f0fdf4;
+
+            --text: #183027;
+            --muted: #68776f;
+
+            --white: #ffffff;
+
+            --border: #dce7df;
+
+            --outer-bg: #8fae9c;
+        }
+
+
+        body {
+
+            font-family: "Segoe UI", Arial, sans-serif;
+
+            background: var(--outer-bg);
+
+            min-height: 100vh;
+
+            color: var(--text);
+        }
+
+
+        /* =====================================
+           MAIN APP
+        ====================================== */
+
+        .app {
+
+            width: 96%;
+
+            max-width: 1500px;
+
+            min-height: 94vh;
+
+            margin: 3vh auto;
+
+            background: #f7faf8;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            display: flex;
+
+            box-shadow:
+                0 25px 60px rgba(6, 78, 59, 0.22);
+        }
+
+
+        /* =====================================
+           SIDEBAR
+        ====================================== */
+
+        .sidebar {
+
+            width: 250px;
+
+            flex-shrink: 0;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #064e3b,
+                    #14532d
+                );
+
+            color: white;
+
+            display: flex;
+
+            flex-direction: column;
+
+            padding: 25px 15px;
+        }
+
+
+        /* LOGO */
+
+        .logo-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            padding: 5px 10px 30px;
+        }
+
+
+        .logo-icon {
+
+            width: 45px;
+
+            height: 45px;
+
+            color: #4ade80;
+
+            flex-shrink: 0;
+        }
+
+
+        .logo-icon svg {
+
+            width: 100%;
+
+            height: 100%;
+        }
+
+
+        .logo-text h2 {
+
+            font-size: 23px;
+
+            line-height: 1;
+
+            color: white;
+        }
+
+
+        .logo-text h2 span {
+
+            color: #4ade80;
+        }
+
+
+        .logo-text p {
+
+            font-size: 11px;
+
+            color: #d1fae5;
+
+            margin-top: 5px;
+        }
+
+
+        /* NAVIGATION */
+
+        .nav {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+
+        .nav-link {
+
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 0 15px;
+
+            color: #e4f4e9;
+
+            text-decoration: none;
+
+            border-radius: 9px;
+
+            font-size: 15px;
+
+            font-weight: 500;
+
+            transition: 0.2s;
+        }
+
+
+        .nav-link svg {
+
+            width: 21px;
+
+            height: 21px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+
+            flex-shrink: 0;
+        }
+
+
+        .nav-link:hover {
+
+            background: rgba(255,255,255,0.08);
+
+            color: white;
+        }
+
+
+        /* ACTIVE SCAN PRODUCT */
+
+        .nav-link.active {
+
+            background: rgba(255,255,255,0.13);
+
+            color: #ffffff;
+
+            border-right: 4px solid #4ade80;
+        }
+
+
+        /* LOGOUT */
+
+        .logout {
+
+            margin-top: auto;
+
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+
+
+        .logout a {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            color: #e4f4e9;
+
+            text-decoration: none;
+
+            padding: 13px 15px;
+
+            border-radius: 9px;
+        }
+
+
+        .logout a:hover {
+
+            background: rgba(255,255,255,0.08);
+        }
+
+
+        .logout svg {
+
+            width: 21px;
+
+            height: 21px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+        }
+
+
+        /* =====================================
+           MAIN
+        ====================================== */
+
+        .main {
+
+            flex: 1;
+
+            min-width: 0;
+
+            background: #f7faf8;
+        }
+
+
+        /* =====================================
+           TOPBAR
+        ====================================== */
+
+        .topbar {
+
+            height: 72px;
+
+            background: white;
+
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 30px;
+        }
+
+
+        .menu-btn {
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            color: var(--dark-green);
+        }
+
+
+        .menu-btn svg {
+
+            width: 25px;
+
+            height: 25px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 2;
+
+            stroke-linecap: round;
+        }
+
+
+        .top-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 23px;
+        }
+
+
+        .notification {
+
+            position: relative;
+
+            color: var(--dark-green);
+
+            cursor: pointer;
+        }
+
+
+        .notification svg {
+
+            width: 24px;
+
+            height: 24px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+        }
+
+
+        .badge {
+
+            position: absolute;
+
+            top: -7px;
+
+            right: -8px;
+
+            background: #dc2626;
+
+            color: white;
+
+            width: 18px;
+
+            height: 18px;
+
+            border-radius: 50%;
+
+            font-size: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+
+        .profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            cursor: pointer;
+        }
+
+
+        .avatar {
+
+            width: 39px;
+
+            height: 39px;
+
+            border-radius: 50%;
+
+            background: var(--light-green);
+
+            color: var(--dark-green);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 15px;
+
+            font-weight: 700;
+        }
+
+
+        .profile-name {
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .profile svg {
+
+            width: 17px;
+
+            height: 17px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 2;
+        }
+
+
+        /* =====================================
+           CONTENT
+        ====================================== */
+
+        .content {
+
+            padding: 30px;
+        }
+
+
+        /* =====================================
+           PAGE HEADER
+        ====================================== */
+
+        .page-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 22px;
+        }
+
+
+        .page-header h1 {
+
+            font-size: 29px;
+
+            color: var(--dark-green-2);
+
+            margin-bottom: 5px;
+        }
+
+
+        .page-header p {
+
+            color: var(--muted);
+
+            font-size: 15px;
+        }
+
+
+        .help-btn {
+
+            border: 1px solid #c7ead5;
+
+            background: #f0fdf4;
+
+            color: #166534;
+
+            padding: 11px 18px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .help-btn:hover {
+
+            background: #dcfce7;
+        }
+
+
+        /* =====================================
+           SCAN CARD
+        ====================================== */
+
+        .scan-card {
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            padding: 25px;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 30px;
+
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 3px 10px rgba(6,78,59,0.04);
+        }
+
+
+        /* =====================================
+           SECTION
+        ====================================== */
+
+        .section-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .section-title h2 {
+
+            font-size: 18px;
+
+            color: var(--dark-green-2);
+        }
+
+
+        .step-number {
+
+            width: 32px;
+
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =====================================
+           UPLOAD SECTION
+        ====================================== */
+
+        .upload-section {
+
+            padding-right: 25px;
+
+            border-right: 1px solid var(--border);
+        }
+
+
+        .upload-box {
+
+            min-height: 285px;
+
+            border: 2px dashed #cbd9d0;
+
+            border-radius: 11px;
+
+            background: #fbfdfb;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 25px;
+
+            transition: 0.2s;
+        }
+
+
+        .upload-box:hover {
+
+            border-color: #4ade80;
+
+            background: #f8fdf9;
+        }
+
+
+        .upload-box.dragover {
+
+            border-color: var(--green);
+
+            background: #f0fdf4;
+        }
+
+
+        .upload-icon {
+
+            width: 58px;
+
+            height: 58px;
+
+            border-radius: 50%;
+
+            background: #dcfce7;
+
+            color: var(--green);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 34px;
+
+            font-weight: 300;
+
+            margin-bottom: 12px;
+        }
+
+
+        .upload-box h3 {
+
+            font-size: 17px;
+
+            color: var(--dark-green-2);
+
+            margin-bottom: 8px;
+        }
+
+
+        .upload-box p {
+
+            color: var(--muted);
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 15px;
+        }
+
+
+        .choose-btn {
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #16a34a,
+                    #15803d
+                );
+
+            color: white;
+
+            padding: 11px 22px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 18px rgba(22,163,74,0.18);
+        }
+
+
+        .choose-btn:hover {
+
+            transform: translateY(-1px);
+        }
+
+
+        .file-name {
+
+            margin-top: 10px;
+
+            color: #166534;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            min-height: 15px;
+        }
+
+
+        /* =====================================
+           INFO BOX
+        ====================================== */
+
+        .info-box {
+
+            margin-top: 15px;
+
+            padding: 13px 15px;
+
+            background: #eff6ff;
+
+            border: 1px solid #dbeafe;
+
+            border-radius: 9px;
+
+            color: #475569;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+
+        .info-box strong {
+
+            color: #334155;
+        }
+
+
+        /* =====================================
+           DETAILS SECTION
+        ====================================== */
+
+        .details-section {
+
+            padding-left: 0;
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 17px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+
+        .form-group label {
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #234536;
+        }
+
+
+        .form-group input,
+        .form-group select {
+
+            width: 100%;
+
+            height: 48px;
+
+            border: 1px solid #d4e0d8;
+
+            border-radius: 8px;
+
+            padding: 0 13px;
+
+            outline: none;
+
+            background: white;
+
+            color: #334155;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus {
+
+            border-color: #4ade80;
+
+            box-shadow:
+                0 0 0 3px rgba(74,222,128,0.12);
+        }
+
+
+        .form-group input::placeholder {
+
+            color: #94a3a0;
+        }
+
+
+        /* =====================================
+           TIP BOX
+        ====================================== */
+
+        .tip-box {
+
+            background: #f0fdf4;
+
+            border: 1px solid #d2eedc;
+
+            border-radius: 9px;
+
+            padding: 14px 15px;
+
+            color: #365c48;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            margin-bottom: 20px;
+        }
+
+
+        .tip-box strong {
+
+            color: #166534;
+
+            margin-right: 5px;
+        }
+
+
+        /* =====================================
+           VERIFY BUTTON
+        ====================================== */
+
+        .verify-btn {
+
+            width: 100%;
+
+            height: 50px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #16a34a,
+                    #15803d
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px rgba(22,163,74,0.18);
+
+            transition: 0.2s;
+        }
+
+
+        .verify-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 24px rgba(22,163,74,0.25);
+        }
+
+
+        .verify-btn:active {
+
+            transform: translateY(0);
+        }
+
+
+        /* =====================================
+           SUPPORTED CATEGORIES
+        ====================================== */
+
+        .support-card {
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            padding: 22px;
+
+            box-shadow:
+                0 3px 10px rgba(6,78,59,0.04);
+        }
+
+
+        .support-card h2 {
+
+            font-size: 18px;
+
+            color: var(--dark-green-2);
+
+            margin-bottom: 20px;
+
+            padding-bottom: 12px;
+
+            border-bottom: 1px solid #edf2ee;
+        }
+
+
+        .categories {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(6, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .category {
+
+            text-align: center;
+        }
+
+
+        .category-icon {
+
+            width: 58px;
+
+            height: 58px;
+
+            margin: 0 auto 9px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+        }
+
+
+        .category:nth-child(1) .category-icon {
+
+            background: #f3e8ff;
+        }
+
+
+        .category:nth-child(2) .category-icon {
+
+            background: #fee2e2;
+        }
+
+
+        .category:nth-child(3) .category-icon {
+
+            background: #fef3c7;
+        }
+
+
+        .category:nth-child(4) .category-icon {
+
+            background: #e0f2fe;
+        }
+
+
+        .category:nth-child(5) .category-icon {
+
+            background: #dcfce7;
+        }
+
+
+        .category:nth-child(6) .category-icon {
+
+            background: #f3e8ff;
+        }
+
+
+        .category p {
+
+            color: #304d40;
+
+            font-size: 13px;
+
+            font-weight: 500;
+        }
+
+
+        /* =====================================
+           RESPONSIVE
+        ====================================== */
+
+        @media (max-width: 1100px) {
+
+            .scan-card {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .upload-section {
+
+                padding-right: 0;
+
+                padding-bottom: 25px;
+
+                border-right: none;
+
+                border-bottom: 1px solid var(--border);
+            }
+
+
+            .categories {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+        }
+
+
+        @media (max-width: 850px) {
+
+            .app {
+
+                width: 100%;
+
+                margin: 0;
+
+                border-radius: 0;
+
+                min-height: 100vh;
+            }
+
+
+            .sidebar {
+
+                width: 75px;
+            }
+
+
+            .logo-text,
+            .nav-link span,
+            .logout span {
+
+                display: none;
+            }
+
+
+            .logo-area {
+
+                justify-content: center;
+
+                padding: 5px 0 30px;
+            }
+
+
+            .nav-link {
+
+                justify-content: center;
+
+                padding: 0;
+            }
+
+
+            .logout a {
+
+                justify-content: center;
+
+                padding: 13px 0;
+            }
+
+
+            .content {
+
+                padding: 20px;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            .topbar {
+
+                padding: 0 18px;
+            }
+
+
+            .profile-name {
+
+                display: none;
+            }
+
+
+            .content {
+
+                padding: 15px;
+            }
+
+
+            .page-header {
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+                flex-direction: column;
+            }
+
+
+            .page-header h1 {
+
+                font-size: 24px;
+            }
+
+
+            .scan-card {
+
+                padding: 18px;
+
+                gap: 20px;
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .categories {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .upload-box {
+
+                min-height: 250px;
+            }
+        }
+/* =========================
+        SIDEBAR TOGGLE
+    ========================= */
+
+    .app.sidebar-hidden .sidebar {
+        width: 0;
+        padding-left: 0;
+        padding-right: 0;
+        overflow: hidden;
+    }
+
+    .app.sidebar-hidden .main {
+        width: 100%;
+    }
+
+    /* Smooth animation */
+    .sidebar {
+        transition: width 0.3s ease, padding 0.3s ease;
+    }
+
+         /* =========================
+        PROFILE DROPDOWN
+        ========================= */
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 5px;
+        }
+
+        .profile-dropdown {
+            display: none;
+
+            position: absolute;
+
+            top: 52px;
+            right: 0;
+
+            width: 190px;
+
+            background: white;
+
+            border: 1px solid #dce7df;
+
+            border-radius: 10px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+            overflow: hidden;
+
+            z-index: 9999;
+        }
+
+        .profile-dropdown.show {
+            display: block;
+        }
+
+        .profile-dropdown a {
+            display: block;
+
+            padding: 13px 16px;
+
+            color: #183027;
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .profile-dropdown a:hover {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+/* =========================================================
+   SHARED APP SHELL — MATCH USER DASHBOARD STYLING
+   These shared rules intentionally come last to keep the layout,
+   sidebar, topbar, navigation, profile, notifications and colors consistent.
+========================================================= */
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Inter","Segoe UI",Arial,sans-serif;
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(255,255,255,.16),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(4,59,44,.13),
+            transparent 32%
+        ),
+        #7f9d8b;
+
+    color:#173126;
+    min-height:100vh;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+
+    --dark-green:#043b2c;
+    --dark-green-2:#075c32;
+
+    --green:#0b7a3b;
+    --green-bright:#16a34a;
+
+    --light-green:#dcfce7;
+    --pale-green:#f4fbf6;
+
+    --text:#173126;
+    --muted:#6b7b73;
+
+    --border:#d9e7de;
+
+    --surface:#ffffff;
+    --surface-soft:#f7faf8;
+
+    --shadow-sm:
+        0 4px 16px rgba(4,59,44,.06);
+
+    --shadow-md:
+        0 12px 30px rgba(4,59,44,.09);
+
+}
+
+
+/* =========================================================
+   MAIN APP
+========================================================= */
+
+.app{
+
+    width:96%;
+    max-width:1540px;
+
+    min-height:94vh;
+
+    margin:3vh auto;
+
+    background:var(--surface-soft);
+
+    border-radius:24px;
+
+    display:flex;
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.35);
+
+    box-shadow:
+        0 28px 70px rgba(4,59,44,.24);
+
+    transition:.3s ease;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+
+    width:258px;
+
+    flex-shrink:0;
+
+    padding:24px 14px 18px;
+
+    background:
+
+        radial-gradient(
+            circle at 80% 8%,
+            rgba(74,222,128,.10),
+            transparent 24%
+        ),
+
+        linear-gradient(
+            160deg,
+            #043b2c 0%,
+            #064a31 48%,
+            #075c32 100%
+        );
+
+    color:white;
+
+    display:flex;
+    flex-direction:column;
+
+    transition:
+        width .3s ease,
+        padding .3s ease,
+        transform .3s ease;
+
+    box-shadow:
+        inset -1px 0 rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo-area{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:6px 11px 30px;
+}
+
+.logo-icon{
+
+    width:43px;
+    height:43px;
+
+    color:#4ade80;
+
+    flex-shrink:0;
+
+    filter:
+        drop-shadow(
+            0 5px 10px rgba(74,222,128,.16)
+        );
+}
+
+.logo-icon svg{
+
+    width:100%;
+    height:100%;
+}
+
+.logo-text h2{
+
+    font-family:
+        "Plus Jakarta Sans",
+        sans-serif;
+
+    font-size:24px;
+
+    line-height:1;
+
+    letter-spacing:-.4px;
+
+    color:white;
+}
+
+.logo-text h2 span{
+
+    color:#4ade80;
+}
+
+.logo-text p{
+
+    font-size:10.5px;
+
+    color:#d1fae5;
+
+    margin-top:6px;
+
+    letter-spacing:.25px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+}
+
+.nav-link{
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:0 14px;
+
+    color:#dceee4;
+
+    text-decoration:none;
+
+    border-radius:12px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    position:relative;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        color .2s ease,
+        box-shadow .2s ease;
+}
+
+.nav-link svg{
+
+    width:20px;
+    height:20px;
+
+    flex-shrink:0;
+
+    fill:none;
+
+    stroke:currentColor;
+
+    stroke-width:1.8;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+    opacity:.92;
+}
+
+
+/* Hover */
+
+.nav-link:hover{
+
+    background:
+        rgba(255,255,255,.09);
+
+    color:white;
+
+    transform:translateX(3px);
+}
+
+
+/* Active */
+
+.nav-link.active{
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.16),
+            rgba(255,255,255,.07)
+        );
+
+    color:#ffffff;
+
+    box-shadow:
+
+        inset 0 0 0 1px
+        rgba(255,255,255,.08),
+
+        0 7px 18px
+        rgba(0,0,0,.08);
+}
+
+.nav-link.active::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-14px;
+
+    top:9px;
+
+    width:4px;
+
+    height:30px;
+
+    border-radius:
+        0 6px 6px 0;
+
+    background:#4ade80;
+
+    box-shadow:
+        0 0 10px
+        rgba(74,222,128,.35);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main{
+
+    flex:1;
+
+    min-width:0;
+
+    background:#f7faf8;
+
+    transition:
+        width .3s ease;
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar{
+
+    height:76px;
+
+    padding:0 32px;
+
+    background:
+        rgba(255,255,255,.96);
+
+    border-bottom:
+        1px solid #e2ebe5;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    position:relative;
+
+    z-index:20;
+
+    box-shadow:
+        0 2px 12px
+        rgba(4,59,44,.025);
+}
+
+
+/* Menu */
+
+.menu-btn{
+
+    width:40px;
+    height:40px;
+
+    display:grid;
+
+    place-items:center;
+
+    border:none;
+
+    background:transparent;
+
+    color:var(--dark-green);
+
+    cursor:pointer;
+
+    border-radius:11px;
+
+    transition:.2s ease;
+}
+
+.menu-btn:hover{
+
+    background:#f0f7f2;
+
+    transform:translateY(-1px);
+}
+
+.menu-btn svg{
+
+    width:22px;
+    height:22px;
+
+    fill:none;
+
+    stroke:currentColor;
+
+    stroke-width:2;
+
+    stroke-linecap:round;
+}
+
+
+/* Top Right */
+
+.top-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+.notification-wrapper{
+
+    position:relative;
+}
+
+.notification{
+
+    width:40px;
+    height:40px;
+
+    display:grid;
+
+    place-items:center;
+
+    border:none;
+
+    background:transparent;
+
+    color:var(--dark-green);
+
+    cursor:pointer;
+
+    border-radius:11px;
+
+    position:relative;
+
+    transition:.2s ease;
+}
+
+.notification:hover{
+
+    background:#f0f7f2;
+}
+
+.notification svg{
+
+    width:21px;
+    height:21px;
+
+    fill:none;
+
+    stroke:currentColor;
+
+    stroke-width:1.8;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+}
+
+.badge{
+
+    position:absolute;
+
+    top:-4px;
+    right:-3px;
+
+    width:18px;
+    height:18px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#dc2626;
+
+    color:white;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    border:2px solid white;
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.profile-wrapper{
+
+    position:relative;
+}
+
+.profile{
+
+    border:none;
+
+    background:transparent;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:5px 7px 5px 5px;
+
+    border-radius:14px;
+
+    transition:.2s ease;
+}
+
+.profile:hover{
+
+    background:#f4f8f5;
+}
+
+.avatar{
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dcfce7,
+            #bbf7d0
+        );
+
+    color:#075c32;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(4,59,44,.06);
+}
+
+.profile-name{
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:#173126;
+}
+
+.profile > svg{
+
+    width:17px;
+    height:17px;
+
+    fill:none;
+
+    stroke:currentColor;
+
+    stroke-width:2;
+}
+
+
+/* =========================================================
+   PROFILE DROPDOWN
+========================================================= */
+
+.profile-dropdown{
+
+    display:none;
+
+    position:absolute;
+
+    top:52px;
+
+    right:0;
+
+    width:190px;
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:13px;
+
+    box-shadow:
+        0 15px 35px
+        rgba(4,59,44,.14);
+
+    overflow:hidden;
+
+    z-index:9999;
+}
+
+.profile-dropdown.show{
+
+    display:block;
+
+    animation:
+        dropdownIn .18s ease;
+}
+
+@keyframes dropdownIn{
+
+    from{
+        opacity:0;
+        transform:translateY(-7px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.profile-dropdown a{
+
+    display:block;
+
+    padding:13px 16px;
+
+    color:#183027;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    transition:.2s ease;
+}
+
+.profile-dropdown a:hover{
+
+    background:#f0fdf4;
+
+    color:#16a34a;
+}
+
+
+/* =========================================================
+   NOTIFICATION POPUP
+========================================================= */
+
+.notification-popup{
+
+    position:absolute;
+
+    top:47px;
+
+    right:0;
+
+    width:360px;
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:15px;
+
+    box-shadow:
+        0 18px 45px
+        rgba(6,78,59,.18);
+
+    overflow:hidden;
+
+    z-index:9999;
+
+    display:none;
+}
+
+.notification-popup.show{
+
+    display:block;
+
+    animation:
+        notificationDrop .18s ease;
+}
+
+@keyframes notificationDrop{
+
+    from{
+        opacity:0;
+        transform:translateY(-8px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.popup-header{
+
+    padding:17px 18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-bottom:1px solid #edf2ee;
+}
+
+.popup-header h3{
+
+    color:#075c32;
+
+    font-size:17px;
+
+    margin-bottom:3px;
+}
+
+.popup-header p{
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+.notification-count{
+
+    background:#dcfce7;
+
+    color:#15803d;
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    font-size:10px;
+
+    font-weight:700;
+}
+
+.popup-list{
+
+    max-height:330px;
+
+    overflow-y:auto;
+}
+
+.popup-notification{
+
+    display:flex;
+
+    gap:12px;
+
+    padding:15px 18px;
+
+    border-bottom:1px solid #edf2ee;
+
+    transition:.2s ease;
+
+    cursor:pointer;
+}
+
+.popup-notification:hover{
+
+    background:#f7faf8;
+}
+
+.popup-notification.unread{
+
+    background:#f0fdf4;
+}
+
+.popup-icon{
+
+    width:38px;
+    height:38px;
+
+    flex-shrink:0;
+
+    border-radius:10px;
+
+    background:#dcfce7;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:17px;
+}
+
+.popup-content{
+
+    flex:1;
+
+    min-width:0;
+}
+
+.popup-content h4{
+
+    font-size:13px;
+
+    color:#123c2b;
+
+    margin-bottom:4px;
+}
+
+.popup-content p{
+
+    color:#68776f;
+
+    font-size:11px;
+
+    line-height:1.4;
+}
+
+.popup-time{
+
+    display:block;
+
+    color:#9aa69f;
+
+    font-size:10px;
+
+    margin-top:5px;
+}
+
+.no-notifications{
+
+    text-align:center;
+
+    padding:35px 20px;
+}
+
+.no-notifications > div{
+
+    font-size:30px;
+
+    margin-bottom:8px;
+}
+
+.no-notifications h4{
+
+    color:#075c32;
+
+    font-size:14px;
+
+    margin-bottom:4px;
+}
+
+.no-notifications p{
+
+    color:var(--muted);
+
+    font-size:11px;
+}
+
+.popup-footer{
+
+    padding:13px;
+
+    text-align:center;
+
+    border-top:1px solid #edf2ee;
+
+    background:#fafdfb;
+}
+
+.popup-footer a{
+
+    color:#0b7a3b;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content{
+
+    padding:30px 32px 34px;
+}
+
+
+/* =========================================================
+   WELCOME
+========================================================= */
+
+.welcome{
+
+    margin-bottom:22px;
+}
+
+.welcome h1{
+
+    font-family:
+        "Plus Jakarta Sans",
+        sans-serif;
+
+    font-size:30px;
+
+    letter-spacing:-.7px;
+
+    color:#064e36;
+
+    margin-bottom:6px;
+}
+
+.welcome p{
+
+    font-size:14px;
+
+    color:#718078;
+}
+
+
+/* =========================================================
+   PREMIUM HERO
+========================================================= */
+
+.hero{
+
+    position:relative;
+
+    min-height:260px;
+
+    padding:38px 42px;
+
+    margin-bottom:24px;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    isolation:isolate;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    color:white;
+
+    background:
+
+        radial-gradient(
+            circle at 88% 15%,
+            rgba(74,222,128,.23),
+            transparent 27%
+        ),
+
+        radial-gradient(
+            circle at 72% 100%,
+            rgba(22,163,74,.18),
+            transparent 34%
+        ),
+
+        linear-gradient(
+            115deg,
+            #032c21 0%,
+            #064e3b 52%,
+            #075c32 100%
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.10);
+
+    box-shadow:
+        0 18px 45px
+        rgba(4,59,44,.17);
+}
+
+
+/* Decorative circle */
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:380px;
+    height:380px;
+
+    right:-130px;
+    top:-185px;
+
+    border:
+        1px solid
+        rgba(134,239,172,.16);
+
+    border-radius:50%;
+
+    z-index:-1;
+}
+
+.hero::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:230px;
+    height:230px;
+
+    right:100px;
+    bottom:-170px;
+
+    border-radius:50%;
+
+    background:
+        rgba(74,222,128,.08);
+
+    z-index:-1;
+}
+
+
+/* Hero content */
+
+.hero-content{
+
+    max-width:670px;
+
+    position:relative;
+
+    z-index:5;
+}
+
+
+/* Badge */
+
+.hero-content::before{
+
+    content:
+        "●  AI-Powered Product Verification";
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:8px 13px;
+
+    margin-bottom:16px;
+
+    border:
+        1px solid
+        rgba(134,239,172,.25);
+
+    border-radius:999px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color:#bbf7d0;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    letter-spacing:.4px;
+
+    backdrop-filter:blur(8px);
+
+    box-shadow:
+        0 6px 20px
+        rgba(0,0,0,.08);
+}
+
+
+/* Heading */
+
+.hero-content h2{
+
+    font-family:
+        "Plus Jakarta Sans",
+        sans-serif;
+
+    font-size:39px;
+
+    line-height:1.08;
+
+    letter-spacing:-1.2px;
+
+    color:white;
+
+    margin-bottom:13px;
+}
+
+.hero-content h2 span{
+
+    color:#4ade80;
+
+    position:relative;
+}
+
+.hero-content h2 span::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    right:0;
+
+    bottom:-3px;
+
+    height:3px;
+
+    border-radius:999px;
+
+    background:
+        rgba(74,222,128,.28);
+}
+
+
+/* Paragraph */
+
+.hero-content p{
+
+    max-width:590px;
+
+    font-size:14.5px;
+
+    line-height:1.75;
+
+    color:#c6dfd1;
+
+    margin-bottom:23px;
+}
+
+
+/* Scan button */
+
+.scan-btn{
+
+    border:none;
+
+    min-height:47px;
+
+    padding:13px 21px;
+
+    border-radius:11px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #22c55e,
+            #16a34a
+        );
+
+    color:#032c21;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 25px
+        rgba(34,197,94,.23);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
+}
+
+.scan-btn:hover{
+
+    transform:translateY(-3px);
+
+    filter:brightness(1.05);
+
+    box-shadow:
+        0 15px 30px
+        rgba(34,197,94,.28);
+}
+
+.scan-btn:active{
+
+    transform:translateY(0);
+}
+
+.scan-btn svg{
+
+    width:19px;
+    height:19px;
+
+    fill:none;
+
+    stroke:currentColor;
+
+    stroke-width:1.8;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+}
+
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+
+.hero-visual{
+
+    width:290px;
+    height:205px;
+
+    position:relative;
+
+    flex-shrink:0;
+
+    margin-right:12px;
+
+    z-index:3;
+}
+
+
+/* Outer orbit */
+
+.circle-one{
+
+    position:absolute;
+
+    width:190px;
+    height:190px;
+
+    left:48px;
+    top:8px;
+
+    border:
+        1px dashed
+        rgba(134,239,172,.32);
+
+    border-radius:50%;
+
+    animation:
+        heroRotate 18s linear infinite;
+}
+
+.circle-one::before,
+.circle-one::after{
+
+    content:"";
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:#4ade80;
+
+    box-shadow:
+        0 0 0 5px
+        rgba(74,222,128,.12);
+}
+
+.circle-one::before{
+
+    width:7px;
+    height:7px;
+
+    top:13px;
+    left:43px;
+}
+
+.circle-one::after{
+
+    width:5px;
+    height:5px;
+
+    right:15px;
+    bottom:45px;
+}
+
+
+/* Main shield */
+
+.shield-big{
+
+    width:125px;
+    height:145px;
+
+    position:absolute;
+
+    left:80px;
+    top:29px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #4ade80,
+            #15803d
+        );
+
+    clip-path:
+        polygon(
+            50% 0,
+            91% 16%,
+            87% 64%,
+            50% 100%,
+            13% 64%,
+            9% 16%
+        );
+
+    filter:
+        drop-shadow(
+            0 15px 25px
+            rgba(0,0,0,.20)
+        );
+
+    animation:
+        shieldFloat 4s ease-in-out infinite;
+}
+
+
+/* Inner shield */
+
+.shield-big::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:8px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #eafff0,
+            #b7f7ca
+        );
+
+    clip-path:
+        polygon(
+            50% 0,
+            91% 16%,
+            87% 64%,
+            50% 100%,
+            13% 64%,
+            9% 16%
+        );
+}
+
+
+/* Check */
+
+.shield-check{
+
+    position:absolute;
+
+    width:42px;
+    height:23px;
+
+    left:119px;
+    top:86px;
+
+    border-left:
+        7px solid
+        #0b7a3b;
+
+    border-bottom:
+        7px solid
+        #064e3b;
+
+    transform:
+        rotate(-45deg);
+
+    z-index:5;
+
+    filter:
+        drop-shadow(
+            0 3px 5px
+            rgba(4,80,42,.18)
+        );
+
+    animation:
+        checkPop 4s ease-in-out infinite;
+}
+
+
+/* Verified badge */
+
+.verify-badge,
+.secure-badge{
+
+    position:absolute;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:9px 12px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    border:
+        1px solid
+        rgba(134,239,172,.30);
+
+    border-radius:11px;
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.14);
+
+    z-index:6;
+}
+
+
+/* Top badge */
+
+.verify-badge{
+
+    top:5px;
+    right:-4px;
+
+    color:#075c32;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    animation:
+        badgeFloat 4.5s ease-in-out infinite;
+}
+
+.badge-icon{
+
+    width:23px;
+    height:23px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#dcfce7;
+
+    color:#0b7a3b;
+
+    font-size:13px;
+
+    font-weight:900;
+}
+
+
+/* Bottom badge */
+
+.secure-badge{
+
+    left:-4px;
+    bottom:10px;
+
+    color:#244c39;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    animation:
+        badgeFloat 4.5s ease-in-out .7s infinite;
+}
+
+.secure-dot{
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:
+        0 0 0 5px
+        rgba(34,197,94,.14);
+}
+
+
+/* Scan line */
+
+.scan-line{
+
+    position:absolute;
+
+    width:120px;
+    height:2px;
+
+    left:83px;
+    top:47px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #4ade80,
+            transparent
+        );
+
+    opacity:0;
+
+    z-index:5;
+
+    animation:
+        scanLine 3.5s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   HERO ANIMATIONS
+========================================================= */
+
+@keyframes shieldFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-7px);
+    }
+
+}
+
+@keyframes badgeFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-5px);
+    }
+
+}
+
+@keyframes checkPop{
+
+    0%,100%{
+        transform:
+            rotate(-45deg)
+            scale(1);
+    }
+
+    50%{
+        transform:
+            rotate(-45deg)
+            scale(1.06);
+    }
+
+}
+
+@keyframes scanLine{
+
+    0%{
+        top:47px;
+        opacity:0;
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    80%{
+        opacity:1;
+    }
+
+    100%{
+        top:145px;
+        opacity:0;
+    }
+
+}
+
+@keyframes heroRotate{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:16px;
+
+    margin-bottom:24px;
+}
+
+.stat-card{
+
+    min-height:105px;
+
+    padding:19px;
+
+    background:white;
+
+    border:
+        1px solid
+        #dce9e1;
+
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    box-shadow:
+        var(--shadow-sm);
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease;
+}
+
+.stat-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:80px;
+    height:80px;
+
+    right:-28px;
+    top:-28px;
+
+    border-radius:50%;
+
+    background:
+        rgba(7,92,50,.035);
+}
+
+.stat-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        var(--shadow-md);
+
+    border-color:#cfe0d5;
+}
+
+.stat-icon{
+
+    width:52px;
+    height:52px;
+
+    border-radius:14px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.stat-icon svg{
+
+    width:27px;
+    height:27px;
+
+    fill:none;
+
+    stroke:currentColor;
+
+    stroke-width:1.8;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+}
+
+.green-icon{
+
+    background:#dcfce7;
+    color:#16a34a;
+}
+
+.blue-icon{
+
+    background:#e0f2fe;
+    color:#0284c7;
+}
+
+.red-icon{
+
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.purple-icon{
+
+    background:#f3e8ff;
+    color:#9333ea;
+}
+
+.stat-title{
+
+    font-size:12px;
+
+    font-weight:600;
+
+    color:#65766d;
+}
+
+.stat-card h3{
+
+    font-family:
+        "Plus Jakarta Sans",
+        sans-serif;
+
+    font-size:27px;
+
+    letter-spacing:-.5px;
+
+    color:#075c32;
+
+    margin-top:3px;
+}
+
+.stat-card p{
+
+    font-size:11px;
+
+    color:var(--muted);
+
+    margin-top:2px;
+}
+
+
+/* =========================================================
+   LOWER GRID
+========================================================= */
+
+.lower-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1.15fr 1fr;
+
+    gap:22px;
+
+    align-items:start;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card{
+
+    width:100%;
+
+    min-width:0;
+
+    background:white;
+
+    border:
+        1px solid
+        #dce9e1;
+
+    border-radius:17px;
+
+    padding:21px;
+
+    box-shadow:
+        var(--shadow-sm);
+
+    transition:
+        box-shadow .22s ease,
+        border-color .22s ease;
+}
+
+.card:hover{
+
+    box-shadow:
+        var(--shadow-md);
+
+    border-color:#cfdfd6;
+}
+
+.card-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:14px;
+
+    padding-bottom:14px;
+
+    border-bottom:
+        1px solid
+        #edf3ef;
+}
+
+.card-header h3{
+
+    font-family:
+        "Plus Jakarta Sans",
+        sans-serif;
+
+    font-size:18px;
+
+    letter-spacing:-.2px;
+
+    color:#064e36;
+}
+
+.view-all{
+
+    color:#0b7a3b;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+.view-all:hover{
+
+    text-decoration:underline;
+}
+
+
+/* =========================================================
+   RECENT SCANS
+========================================================= */
+
+.recent-scans-card{
+
+    overflow:hidden;
+}
+
+.scan-list{
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.scan-item{
+
+    width:100%;
+
+    min-height:82px;
+
+    padding:16px 8px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-bottom:
+        1px solid
+        #edf3ef;
+
+    border-radius:11px;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.scan-item:last-child{
+
+    border-bottom:none;
+}
+
+.scan-item:hover{
+
+    background:#f8fbf9;
+
+    transform:translateX(2px);
+}
+
+.scan-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    min-width:0;
+}
+
+.scan-icon{
+
+    width:46px;
+    height:46px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:#ecfdf3;
+
+    font-size:20px;
+
+    overflow:hidden;
+}
+
+.scan-icon img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+    display:block;
+}
+
+.scan-left h4{
+
+    margin:0;
+
+    font-size:14px;
+
+    color:#173d2e;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.scan-left p{
+
+    margin:5px 0 0;
+
+    font-size:11.5px;
+
+    color:#77857e;
+}
+
+.scan-right{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    flex-shrink:0;
+
+    margin-left:15px;
+}
+
+.status{
+
+    padding:7px 12px;
+
+    border-radius:999px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+}
+
+.status.genuine{
+
+    background:#dcfce7;
+
+    color:#15803d;
+}
+
+.status.fake{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+}
+
+.status.pending{
+
+    background:#fef3c7;
+
+    color:#b45309;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state{
+
+    width:100%;
+
+    text-align:center;
+
+    padding:48px 20px;
+}
+
+.empty-state h4{
+
+    margin-bottom:8px;
+
+    font-size:17px;
+
+    color:#123c2b;
+}
+
+.empty-state p{
+
+    margin-bottom:18px;
+
+    color:#718078;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
+
+.step{
+
+    display:flex;
+
+    gap:14px;
+
+    margin-bottom:17px;
+
+    padding:6px 4px;
+
+    border-radius:12px;
+
+    transition:
+        background .2s ease;
+}
+
+.step:last-child{
+
+    margin-bottom:0;
+}
+
+.step:hover{
+
+    background:#f7faf8;
+}
+
+.step-number{
+
+    width:38px;
+    height:38px;
+
+    flex-shrink:0;
+
+    border:
+        1px solid
+        #cde6d5;
+
+    background:#e8f7ed;
+
+    color:#075c32;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-weight:800;
+
+    font-size:13px;
+}
+
+.step h4{
+
+    font-size:13.5px;
+
+    color:#075c32;
+
+    margin-bottom:4px;
+}
+
+.step p{
+
+    font-size:11.5px;
+
+    color:var(--muted);
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   SAFETY
+========================================================= */
+
+.safety{
+
+    margin-top:22px;
+
+    padding:14px 18px;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ecfdf5,
+            #f4fbf6
+        );
+
+    border:
+        1px solid
+        #cde7d5;
+
+    box-shadow:
+        0 4px 14px
+        rgba(4,59,44,.04);
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#166534;
+
+    font-size:13px;
+}
+
+.safety svg{
+
+    width:22px;
+    height:22px;
+
+    flex-shrink:0;
+
+    fill:none;
+
+    stroke:#0b7a3b;
+
+    stroke-width:2;
+}
+
+.safety strong{
+
+    margin-right:8px;
+}
+
+
+/* =========================================================
+   SIDEBAR TOGGLE
+========================================================= */
+
+/*
+    Desktop par sidebar hide karne ke baad
+    main content full width le lega.
+*/
+
+.app.sidebar-hidden .sidebar{
+
+    width:0;
+
+    padding-left:0;
+    padding-right:0;
+
+    overflow:hidden;
+}
+
+.app.sidebar-hidden .main{
+
+    width:100%;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+
+    width:9px;
+    height:9px;
+}
+
+::-webkit-scrollbar-track{
+
+    background:#edf4ef;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#a9c1b2;
+
+    border-radius:999px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#7fa28e;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+    .content{
+
+        padding:26px;
+    }
+
+    .hero{
+
+        padding:32px;
+    }
+
+    .hero-content h2{
+
+        font-size:34px;
+    }
+
+    .hero-visual{
+
+        width:245px;
+
+        margin-right:0;
+    }
+
+}
+
+
+@media(max-width:1100px){
+
+    .stats{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .lower-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .hero-visual{
+
+        opacity:.82;
+    }
+
+}
+
+
+@media(max-width:900px){
+
+    .app{
+
+        width:100%;
+
+        margin:0;
+
+        min-height:100vh;
+
+        border-radius:0;
+    }
+
+    .sidebar{
+
+        width:235px;
+    }
+
+    .content{
+
+        padding:22px;
+    }
+
+    .hero{
+
+        min-height:225px;
+
+        padding:28px;
+    }
+
+    .hero-content h2{
+
+        font-size:31px;
+    }
+
+    .hero-visual{
+
+        display:none;
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    .topbar{
+
+        height:68px;
+
+        padding:0 18px;
+    }
+
+    .content{
+
+        padding:18px;
+    }
+
+    .welcome h1{
+
+        font-size:25px;
+    }
+
+    .hero{
+
+        padding:25px 22px;
+
+        min-height:0;
+
+        border-radius:17px;
+    }
+
+    .hero-content h2{
+
+        font-size:28px;
+    }
+
+    .hero-content p{
+
+        font-size:14px;
+    }
+
+    .stats{
+
+        grid-template-columns:1fr;
+
+        gap:12px;
+    }
+
+    .card{
+
+        padding:17px;
+    }
+
+    .profile-name{
+
+        display:none;
+    }
+
+}
+
+
+@media(max-width:500px){
+
+    .notification-popup{
+
+        position:fixed;
+
+        top:72px;
+
+        left:15px;
+        right:15px;
+
+        width:auto;
+    }
+
+}
+
+
+@media(max-width:430px){
+
+    .scan-item{
+
+        align-items:flex-start;
+
+        gap:10px;
+    }
+
+    .scan-right{
+
+        margin-left:5px;
+    }
+
+    .status{
+
+        padding:6px 9px;
+
+        font-size:10px;
+    }
+
+}
+
+
+/* Reduced motion */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        scroll-behavior:auto!important;
+
+        animation:none!important;
+
+        transition:none!important;
+    }
+
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo-area">
+
+            <div class="logo-icon">
+
+                <svg viewBox="0 0 100 100">
+
+                    <path
+                        d="M50 7 L82 19 V43
+                        C82 65 69 82 50 92
+                        C31 82 18 65 18 43
+                        V19 Z"
+
+                        fill="none"
+
+                        stroke="currentColor"
+
+                        stroke-width="6"
+                    />
+
+                    <path
+                        d="M35 48 L46 59 L67 36"
+
+                        fill="none"
+
+                        stroke="currentColor"
+
+                        stroke-width="6"
+
+                        stroke-linecap="round"
+
+                        stroke-linejoin="round"
+                    />
+
+                </svg>
+
+            </div>
+
+
+            <div class="logo-text">
+
+                <h2>
+                    Scan<span>Sure</span>
+                </h2>
+
+                <p>
+                    Fake Product Detector
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="nav">
+
+
+            <!-- Dashboard -->
+
+            <a
+                href="/user_dashboard"
+                class="nav-link"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M3 11.5L12 4l9 7.5"/>
+
+                    <path d="M5 10v10h14V10"/>
+
+                    <path d="M9 20v-6h6v6"/>
+
+                </svg>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- Scan -->
+
+            <a
+                href="/product_scans"
+                class="nav-link active"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+
+                    <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+
+                    <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+
+                    <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="3"
+                    />
+
+                </svg>
+
+                <span>
+                    Scan Product
+                </span>
+
+            </a>
+
+
+
+            <!-- History -->
+
+            <a
+                href="/scan_history"
+                class="nav-link"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path
+                        d="M3 12a9 9 0 1 0 3-6.7"
+                    />
+
+                    <path
+                        d="M3 4v6h6"
+                    />
+
+                    <path
+                        d="M12 7v5l3 2"
+                    />
+
+                </svg>
+
+                <span>
+                    History
+                </span>
+
+            </a>
+
+
+
+            <!-- Report -->
+
+            <a
+                href="/report_product"
+                class="nav-link"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M5 21V4"/>
+
+                    <path
+                        d="M5 5h13l-2 4 2 4H5"
+                    />
+
+                </svg>
+
+                <span>
+                    Report Product
+                </span>
+
+            </a>
+
+
+
+            <!-- About -->
+
+            <a
+                href="about_us"
+                class="nav-link"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="9"
+                    />
+
+                    <path d="M12 11v5"/>
+
+                    <path d="M12 8h.01"/>
+
+                </svg>
+
+                <span>
+                    About Us
+                </span>
+
+            </a>
+
+
+
+            <!-- Contact -->
+
+            <a
+                href="/contact"
+                class="nav-link"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <rect
+                        x="3"
+                        y="5"
+                        width="18"
+                        height="14"
+                        rx="2"
+                    />
+
+                    <path
+                        d="M3 7l9 6 9-6"
+                    />
+
+                </svg>
+
+                <span>
+                    Contact Us
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+    </aside>
+
+
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+     <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+
+            <!-- MENU -->
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                type="button"
+                aria-label="Toggle sidebar"
+            >
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M4 6h16"/>
+
+                    <path d="M4 12h16"/>
+
+                    <path d="M4 18h16"/>
+
+                </svg>
+
+            </button>
+
+
+
+            <!-- TOP RIGHT -->
+
+            <div class="top-right">
+
+
+                <!-- NOTIFICATION -->
+
+                <div class="notification-wrapper">
+
+                    <button
+                        class="notification"
+                        type="button"
+                        onclick="toggleNotifications()"
+                    >
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path
+                                d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
+                            />
+
+                            <path d="M10 21h4"/>
+
+                        </svg>
+
+
+                        {% if unread_count > 0 %}
+
+                            <span class="badge">
+                                {{ unread_count }}
+                            </span>
+
+                        {% endif %}
+
+                    </button>
+
+
+
+                    <!-- NOTIFICATION POPUP -->
+
+                    <div
+                        class="notification-popup"
+                        id="notificationPopup"
+                    >
+
+                        <div class="popup-header">
+
+                            <div>
+
+                                <h3>
+                                    Notifications
+                                </h3>
+
+                                <p>
+                                    Your latest updates
+                                </p>
+
+                            </div>
+
+
+                            {% if unread_count > 0 %}
+
+                                <span class="notification-count">
+
+                                    {{ unread_count }} New
+
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="popup-list">
+
+
+                            {% if notifications %}
+
+                                {% for notification in notifications %}
+
+                                    <div
+                                        class="
+                                            popup-notification
+                                            {% if not notification.is_read %}
+                                                unread
+                                            {% endif %}
+                                        "
+                                    >
+
+                                        <div class="popup-icon">
+                                            🔔
+                                        </div>
+
+
+                                        <div class="popup-content">
+
+                                            <h4>
+                                                {{ notification.title }}
+                                            </h4>
+
+                                            <p>
+                                                {{ notification.message }}
+                                            </p>
+
+                                            <span class="popup-time">
+
+                                                {% if notification.created_at %}
+
+                                                    {{ notification.created_at.strftime("%d %b, %I:%M %p") }}
+
+                                                {% endif %}
+
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+
+
+                            {% else %}
+
+
+                                <div class="no-notifications">
+
+                                    <div>
+                                        🔔
+                                    </div>
+
+                                    <h4>
+                                        No notifications
+                                    </h4>
+
+                                    <p>
+                                        You're all caught up!
+                                    </p>
+
+                                </div>
+
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                        <div class="popup-footer">
+
+                            <a href="/notifications">
+                                View All Notifications →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PROFILE -->
+
+                <div class="profile-wrapper">
+
+
+                    <button
+                        class="profile"
+                        id="profileBtn"
+                        type="button"
+                    >
+
+                        <div class="avatar">
+
+                            {{ name[0]|upper }}
+
+                        </div>
+
+
+                        <span class="profile-name">
+
+                            {{ name }}
+
+                        </span>
+
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="m6 9 6 6 6-6"/>
+
+                        </svg>
+
+                    </button>
+
+
+
+                    <div
+                        class="profile-dropdown"
+                        id="profileDropdown"
+                    >
+
+                        <a href="/profile">
+                            👤 My Profile
+                        </a>
+
+                        <a href="/logout">
+                            🚪 Logout
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             CONTENT
+        ====================================== -->
+
+        <div class="content">
+
+
+            <!-- PAGE HEADER -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>
+                        Scan Product
+                    </h1>
+
+                    <p>
+                        Upload product image or enter product
+                        details to verify authenticity.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="help-btn"
+                    onclick="showHelp()"
+                >
+
+                    ? &nbsp; How It Works
+
+                </button>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 SCAN FORM
+            ====================================== -->
+
+            <form
+                id="scanForm"
+                action="/verify_product"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+
+                <!-- =================================
+                     MAIN SCAN CARD
+                ================================== -->
+
+                <div class="scan-card">
+
+
+                    <!-- UPLOAD -->
+
+                    <section class="upload-section">
+
+
+                        <div class="section-title">
+
+                            <div class="step-number">
+                                1
+                            </div>
+
+                            <h2>
+                                Upload Product Image
+                            </h2>
+
+                        </div>
+
+
+                        <div
+                            class="upload-box"
+                            id="uploadBox"
+                        >
+
+
+                            <div class="upload-icon">
+                                ↑
+                            </div>
+
+
+                            <h3>
+                                Upload a product image
+                            </h3>
+
+
+                            <p>
+                                Drag & drop an image here
+                                <br>
+                                or choose a file
+                            </p>
+
+
+                            <input
+                                type="file"
+                                id="productImage"
+                                name="product_image"
+                                accept=".jpg,.jpeg,.png"
+                                hidden
+                            >
+
+
+                            <button
+                                type="button"
+                                class="choose-btn"
+                                onclick="document.getElementById('productImage').click()"
+                            >
+
+                                Choose File
+
+                            </button>
+
+
+                            <div
+                                class="file-name"
+                                id="fileName"
+                            ></div>
+
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <strong>
+                                Supported formats:
+                            </strong>
+
+                            JPG, PNG, JPEG
+
+                            <br>
+
+                            <strong>
+                                Maximum file size:
+                            </strong>
+
+                            5MB
+
+                        </div>
+
+
+                    </section>
+
+
+
+                    <!-- =================================
+                         PRODUCT DETAILS
+                    ================================== -->
+
+                    <section class="details-section">
+
+
+                        <div class="section-title">
+
+                            <div class="step-number">
+                                2
+                            </div>
+
+                            <h2>
+                                Enter Product Details
+                            </h2>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <!-- PRODUCT NAME -->
+
+                            <div class="form-group">
+
+                                <label for="productName">
+                                    Product Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="productName"
+                                    name="product_name"
+                                    placeholder="Enter product name"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- BRAND -->
+
+                            <div class="form-group">
+
+                                <label for="brand">
+                                    Brand
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="brand"
+                                    name="brand"
+                                    placeholder="Enter brand name"
+                                >
+
+                            </div>
+
+
+
+                            <!-- BARCODE -->
+
+                            <div class="form-group">
+
+                                <label for="barcode">
+                                    Barcode / QR Code
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="barcode"
+                                    name="barcode"
+                                    placeholder="Enter barcode or QR code"
+                                >
+
+                            </div>
+
+
+
+                            <!-- CATEGORY -->
+
+                            <div class="form-group">
+
+                                <label for="category">
+                                    Category
+                                </label>
+
+                                <select
+                                    id="category"
+                                    name="category"
+                                >
+
+                                    <option value="">
+                                        Select category
+                                    </option>
+
+                                    <option value="Electronics">
+                                        Electronics
+                                    </option>
+
+                                    <option value="Cosmetics">
+                                        Cosmetics
+                                    </option>
+
+                                    <option value="Accessories">
+                                        Accessories
+                                    </option>
+
+                                    <option value="Footwear">
+                                        Footwear
+                                    </option>
+
+                                    <option value="Watches">
+                                        Watches
+                                    </option>
+
+                                    <option value="Food & Beverages">
+                                        Food & Beverages
+                                    </option>
+
+                                    <option value="Other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- TIP -->
+
+                        <div class="tip-box">
+
+                            💡
+
+                            <strong>
+                                Tip:
+                            </strong>
+
+                            Adding more product details helps
+                            ScanSure provide more accurate results.
+
+                        </div>
+
+
+
+                        <!-- VERIFY -->
+
+                        <button
+                            type="submit"
+                            class="verify-btn"
+                        >
+
+                            🛡️ &nbsp;
+                            Verify Product
+
+                        </button>
+
+
+                    </section>
+
+
+                </div>
+
+
+            </form>
+
+
+
+            <!-- =====================================
+                 SUPPORTED CATEGORIES
+            ====================================== -->
+
+            <section class="support-card">
+
+
+                <h2>
+                    We support detection for
+                </h2>
+
+
+                <div class="categories">
+
+
+                    <div class="category">
+
+                        <div class="category-icon">
+                            📱
+                        </div>
+
+                        <p>
+                            Electronics
+                        </p>
+
+                    </div>
+
+
+                    <div class="category">
+
+                        <div class="category-icon">
+                            🧴
+                        </div>
+
+                        <p>
+                            Cosmetics
+                        </p>
+
+                    </div>
+
+
+                    <div class="category">
+
+                        <div class="category-icon">
+                            👜
+                        </div>
+
+                        <p>
+                            Accessories
+                        </p>
+
+                    </div>
+
+
+                    <div class="category">
+
+                        <div class="category-icon">
+                            👟
+                        </div>
+
+                        <p>
+                            Footwear
+                        </p>
+
+                    </div>
+
+
+                    <div class="category">
+
+                        <div class="category-icon">
+                            ⌚
+                        </div>
+
+                        <p>
+                            Watches
+                        </p>
+
+                    </div>
+
+
+                    <div class="category">
+
+                        <div class="category-icon">
+                            ▦
+                        </div>
+
+                        <p>
+                            And More
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<script>
+
+
+    /* =====================================
+       FILE UPLOAD
+    ====================================== */
+
+    const productImage =
+        document.getElementById("productImage");
+
+    const fileName =
+        document.getElementById("fileName");
+
+    const uploadBox =
+        document.getElementById("uploadBox");
+
+
+    productImage.addEventListener(
+        "change",
+        function () {
+
+            if (this.files.length > 0) {
+
+                const file = this.files[0];
+
+                fileName.textContent =
+                    "Selected: " + file.name;
+
+            }
+
+        }
+    );
+
+
+    /* =====================================
+       DRAG & DROP
+    ====================================== */
+
+    uploadBox.addEventListener(
+        "dragover",
+        function (event) {
+
+            event.preventDefault();
+
+            uploadBox.classList.add("dragover");
+
+        }
+    );
+
+
+    uploadBox.addEventListener(
+        "dragleave",
+        function () {
+
+            uploadBox.classList.remove("dragover");
+
+        }
+    );
+
+
+    uploadBox.addEventListener(
+        "drop",
+        function (event) {
+
+            event.preventDefault();
+
+            uploadBox.classList.remove("dragover");
+
+
+            if (event.dataTransfer.files.length > 0) {
+
+                productImage.files =
+                    event.dataTransfer.files;
+
+                fileName.textContent =
+                    "Selected: " +
+                    event.dataTransfer.files[0].name;
+
+            }
+
+        }
+    );
+
+
+    /* =====================================
+       HELP
+    ====================================== */
+
+    function showHelp() {
+
+        alert(
+            "1. Upload a clear product image.\n\n" +
+            "2. Enter product name, brand, barcode and category.\n\n" +
+            "3. Click Verify Product to check authenticity."
+        );
+
+    }
+    const menuBtn = document.getElementById("menuBtn");
+        const app = document.querySelector(".app");
+
+        menuBtn.addEventListener("click", function () {
+
+            app.classList.toggle("sidebar-hidden");
+
+        });
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const profileBtn = document.getElementById("profileBtn");
+        const profileDropdown = document.getElementById("profileDropdown");
+
+        profileBtn.addEventListener("click", function (event) {
+
+            event.stopPropagation();
+
+            profileDropdown.classList.toggle("show");
+
+        });
+
+o
+        document.addEventListener("click", function (event) {
+
+            if (!profileDropdown.contains(event.target)) {
+
+                profileDropdown.classList.remove("show");
+
+            }
+
+        });
+
+    });
+
+
+</script>
+
+
+</body>
+
+</html>

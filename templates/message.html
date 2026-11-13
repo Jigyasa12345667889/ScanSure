@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ScanSure | Messages</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-green: #064e3b;
+            --dark-green-2: #14532d;
+            --green: #16a34a;
+            --light-green: #dcfce7;
+            --pale-green: #f0fdf4;
+
+            --text: #183027;
+            --muted: #68776f;
+
+            --white: #ffffff;
+            --border: #dce7df;
+
+            --outer-bg: #8fae9c;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--outer-bg);
+            min-height: 100vh;
+            color: var(--text);
+        }
+
+        /* ==========================================
+           APP
+        ========================================== */
+
+        .app {
+            width: 96%;
+            max-width: 1500px;
+            min-height: 94vh;
+            margin: 3vh auto;
+
+            background: #f7faf8;
+
+            border-radius: 20px;
+            overflow: hidden;
+
+            display: flex;
+
+            box-shadow:
+                0 25px 60px rgba(6, 78, 59, .22);
+        }
+
+        /* ==========================================
+           SIDEBAR
+        ========================================== */
+
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #064e3b,
+                    #14532d
+                );
+
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 25px 15px;
+
+            transition:
+                width .3s ease,
+                padding .3s ease;
+        }
+
+        /* ==========================================
+           LOGO
+        ========================================== */
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            padding: 5px 10px 30px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            color: #4ade80;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text h2 {
+            font-size: 23px;
+            line-height: 1;
+            color: white;
+        }
+
+        .logo-text h2 span {
+            color: #4ade80;
+        }
+
+        .logo-text p {
+            font-size: 11px;
+            color: #d1fae5;
+            margin-top: 5px;
+        }
+
+        /* ==========================================
+           NAVIGATION
+        ========================================== */
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .nav-link {
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            padding: 0 15px;
+
+            color: #e4f4e9;
+            text-decoration: none;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+            font-weight: 500;
+
+            transition: .2s;
+        }
+
+        .nav-link svg {
+            width: 21px;
+            height: 21px;
+
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+
+            flex-shrink: 0;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,.08);
+            color: white;
+        }
+
+        .nav-link.active {
+            background: rgba(255,255,255,.13);
+            color: white;
+
+            border-right:
+                4px solid #4ade80;
+        }
+
+        /* ==========================================
+           LOGOUT
+        ========================================== */
+
+        .logout {
+            margin-top: auto;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid rgba(255,255,255,.15);
+        }
+
+        .logout a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            color: #e4f4e9;
+            text-decoration: none;
+
+            padding: 13px 15px;
+
+            border-radius: 9px;
+        }
+
+        .logout a:hover {
+            background: rgba(255,255,255,.08);
+        }
+
+        .logout svg {
+            width: 21px;
+            height: 21px;
+
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+        }
+
+        /* ==========================================
+           MAIN
+        ========================================== */
+
+        .main {
+            flex: 1;
+            min-width: 0;
+
+            background: #f7faf8;
+        }
+
+        /* ==========================================
+           TOPBAR
+        ========================================== */
+
+        .topbar {
+            height: 72px;
+
+            background: white;
+
+            border-bottom:
+                1px solid var(--border);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 30px;
+        }
+
+        .menu-btn {
+            border: none;
+            background: transparent;
+
+            cursor: pointer;
+
+            color: var(--dark-green);
+        }
+
+        .menu-btn svg {
+            width: 25px;
+            height: 25px;
+
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .top-right {
+            display: flex;
+            align-items: center;
+
+            gap: 23px;
+        }
+
+        /* ==========================================
+           NOTIFICATION
+        ========================================== */
+
+        .notification {
+            position: relative;
+
+            color: var(--dark-green);
+
+            cursor: pointer;
+        }
+
+        .notification svg {
+            width: 24px;
+            height: 24px;
+
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+        }
+
+        .badge {
+            position: absolute;
+
+            top: -7px;
+            right: -8px;
+
+            background: #dc2626;
+            color: white;
+
+            width: 18px;
+            height: 18px;
+
+            border-radius: 50%;
+
+            font-size: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+        /* ==========================================
+           PROFILE
+        ========================================== */
+
+        .profile-wrapper {
+            position: relative;
+        }
+
+        .profile {
+            border: none;
+            background: transparent;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 5px;
+        }
+
+        .avatar {
+            width: 39px;
+            height: 39px;
+
+            border-radius: 50%;
+
+            background:
+                var(--light-green);
+
+            color:
+                var(--dark-green);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+        }
+
+        .profile-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .profile svg {
+            width: 17px;
+            height: 17px;
+
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* ==========================================
+           PROFILE DROPDOWN
+        ========================================== */
+
+        .profile-dropdown {
+            display: none;
+
+            position: absolute;
+
+            top: 52px;
+            right: 0;
+
+            width: 190px;
+
+            background: white;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,.12);
+
+            overflow: hidden;
+
+            z-index: 9999;
+        }
+
+        .profile-dropdown.show {
+            display: block;
+        }
+
+        .profile-dropdown a {
+            display: block;
+
+            padding: 13px 16px;
+
+            color: var(--text);
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .profile-dropdown a:hover {
+            background:
+                var(--pale-green);
+
+            color:
+                var(--green);
+        }
+
+        /* ==========================================
+           CONTENT
+        ========================================== */
+
+        .content {
+            padding: 30px;
+        }
+
+        .page-header {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+
+            color:
+                var(--dark-green-2);
+
+            margin-bottom: 5px;
+        }
+
+        .page-header p {
+            color:
+                var(--muted);
+
+            font-size: 15px;
+        }
+
+        /* ==========================================
+           MESSAGE LAYOUT
+        ========================================== */
+
+        .message-container {
+            display: grid;
+
+            grid-template-columns:
+                340px 1fr;
+
+            gap: 20px;
+
+            min-height: 610px;
+        }
+
+        /* ==========================================
+           MESSAGE LIST CARD
+        ========================================== */
+
+        .message-list {
+            background: white;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 4px 15px
+                rgba(6,78,59,.04);
+        }
+
+        .list-header {
+            padding: 20px;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+        .list-header h2 {
+            font-size: 18px;
+
+            color:
+                var(--dark-green-2);
+
+            margin-bottom: 15px;
+        }
+
+        /* SEARCH */
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+
+            height: 40px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 8px;
+
+            padding:
+                0 12px 0 38px;
+
+            outline: none;
+
+            font-size: 13px;
+
+            color: var(--text);
+
+            background: #fbfdfb;
+        }
+
+        .search-box input:focus {
+            border-color:
+                #86efac;
+
+            background: white;
+        }
+
+        .search-box svg {
+            position: absolute;
+
+            left: 12px;
+            top: 11px;
+
+            width: 18px;
+            height: 18px;
+
+            fill: none;
+
+            stroke:
+                var(--muted);
+
+            stroke-width: 1.8;
+        }
+
+        /* ==========================================
+           MESSAGE ITEMS
+        ========================================== */
+
+        .messages {
+            max-height: 510px;
+
+            overflow-y: auto;
+        }
+
+        .message-item {
+            display: flex;
+
+            gap: 12px;
+
+            padding: 16px;
+
+            border-bottom:
+                1px solid #edf2ee;
+
+            cursor: pointer;
+
+            transition: .2s;
+        }
+
+        .message-item:hover {
+            background:
+                var(--pale-green);
+        }
+
+        .message-item.active {
+            background:
+                #ecfdf3;
+
+            border-left:
+                4px solid var(--green);
+        }
+
+        .user-avatar {
+            width: 43px;
+            height: 43px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+            background:
+                var(--light-green);
+
+            color:
+                var(--dark-green);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+
+            font-size: 14px;
+        }
+
+        .message-preview {
+            min-width: 0;
+
+            flex: 1;
+        }
+
+        .message-top {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 5px;
+        }
+
+        .message-name {
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color:
+                var(--dark-green-2);
+        }
+
+        .message-time {
+            font-size: 10px;
+
+            color:
+                var(--muted);
+        }
+
+        .message-text {
+            color:
+                var(--muted);
+
+            font-size: 12px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+        .unread-dot {
+            width: 8px;
+            height: 8px;
+
+            background:
+                var(--green);
+
+            border-radius: 50%;
+
+            margin-top: 5px;
+        }
+
+        /* ==========================================
+           CHAT CARD
+        ========================================== */
+
+        .chat-card {
+            background: white;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 4px 15px
+                rgba(6,78,59,.04);
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        /* CHAT HEADER */
+
+        .chat-header {
+            height: 75px;
+
+            padding:
+                15px 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+        .chat-user {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .chat-user .user-avatar {
+            width: 42px;
+            height: 42px;
+        }
+
+        .chat-user h3 {
+            color:
+                var(--dark-green-2);
+
+            font-size: 15px;
+        }
+
+        .online {
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            color:
+                var(--green);
+
+            font-size: 11px;
+
+            margin-top: 3px;
+        }
+
+        .online-dot {
+            width: 7px;
+            height: 7px;
+
+            background:
+                var(--green);
+
+            border-radius: 50%;
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-action {
+            width: 35px;
+            height: 35px;
+
+            border: 1px solid var(--border);
+
+            background: white;
+
+            border-radius: 8px;
+
+            color:
+                var(--muted);
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-action:hover {
+            background:
+                var(--pale-green);
+
+            color:
+                var(--green);
+
+            border-color:
+                #b7e5c5;
+        }
+
+        .chat-action svg {
+            width: 17px;
+            height: 17px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+        }
+
+        /* ==========================================
+           CHAT BODY
+        ========================================== */
+
+        .chat-body {
+            flex: 1;
+
+            padding: 25px;
+
+            background:
+                #f8fcf9;
+
+            overflow-y: auto;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 15px;
+        }
+
+        .date-divider {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            color:
+                #91a098;
+
+            font-size: 10px;
+
+            justify-content: center;
+
+            margin: 5px 0;
+        }
+
+        .date-divider::before,
+        .date-divider::after {
+            content: "";
+
+            height: 1px;
+
+            width: 80px;
+
+            background:
+                #dce7df;
+        }
+
+        .bubble-row {
+            display: flex;
+        }
+
+        .bubble-row.user {
+            justify-content: flex-start;
+        }
+
+        .bubble-row.admin {
+            justify-content: flex-end;
+        }
+
+        .bubble {
+            max-width: 65%;
+
+            padding: 12px 15px;
+
+            border-radius: 12px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        .bubble.user {
+            background: white;
+
+            border:
+                1px solid var(--border);
+
+            color:
+                var(--text);
+
+            border-bottom-left-radius: 3px;
+        }
+
+        .bubble.admin {
+            background:
+                var(--dark-green);
+
+            color: white;
+
+            border-bottom-right-radius: 3px;
+        }
+
+        .bubble-time {
+            display: block;
+
+            font-size: 9px;
+
+            margin-top: 5px;
+
+            opacity: .65;
+
+            text-align: right;
+        }
+
+        /* ==========================================
+           MESSAGE INPUT
+        ========================================== */
+
+        .chat-input {
+            padding: 15px 20px;
+
+            border-top:
+                1px solid var(--border);
+
+            background: white;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .attach-btn {
+            width: 40px;
+            height: 40px;
+
+            flex-shrink: 0;
+
+            border:
+                1px solid var(--border);
+
+            background: white;
+
+            border-radius: 9px;
+
+            color:
+                var(--muted);
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .attach-btn:hover {
+            color:
+                var(--green);
+
+            background:
+                var(--pale-green);
+        }
+
+        .attach-btn svg {
+            width: 18px;
+            height: 18px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.8;
+        }
+
+        .chat-input input {
+            flex: 1;
+
+            height: 40px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            padding: 0 13px;
+
+            outline: none;
+
+            font-size: 13px;
+
+            color: var(--text);
+        }
+
+        .chat-input input:focus {
+            border-color:
+                #86efac;
+        }
+
+        .send-btn {
+            height: 40px;
+
+            padding:
+                0 18px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background:
+                var(--dark-green);
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: .2s;
+        }
+
+        .send-btn:hover {
+            background:
+                var(--green);
+
+            transform:
+                translateY(-1px);
+        }
+
+        /* ==========================================
+           EMPTY STATE
+        ========================================== */
+
+        .empty-state {
+            height: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color:
+                var(--muted);
+
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 65px;
+            height: 65px;
+
+            border-radius: 50%;
+
+            background:
+                var(--light-green);
+
+            color:
+                var(--green);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 15px;
+        }
+
+        .empty-icon svg {
+            width: 30px;
+            height: 30px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.5;
+        }
+
+        .empty-state h3 {
+            color:
+                var(--dark-green-2);
+
+            font-size: 17px;
+
+            margin-bottom: 5px;
+        }
+
+        .empty-state p {
+            font-size: 13px;
+        }
+
+        /* ==========================================
+           SIDEBAR HIDDEN
+        ========================================== */
+
+        .app.sidebar-hidden .sidebar {
+            width: 0;
+
+            padding-left: 0;
+            padding-right: 0;
+
+            overflow: hidden;
+        }
+
+        /* ==========================================
+           RESPONSIVE
+        ========================================== */
+
+        @media(max-width: 1000px) {
+
+            .message-container {
+                grid-template-columns: 290px 1fr;
+            }
+
+        }
+
+        @media(max-width: 800px) {
+
+            .app {
+                width: 100%;
+
+                margin: 0;
+
+                border-radius: 0;
+
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                width: 75px;
+            }
+
+            .logo-text,
+            .nav-link span,
+            .logout span {
+                display: none;
+            }
+
+            .logo-area {
+                justify-content: center;
+
+                padding:
+                    5px 0 30px;
+            }
+
+            .nav-link {
+                justify-content: center;
+
+                padding: 0;
+            }
+
+            .logout a {
+                justify-content: center;
+
+                padding: 13px 0;
+            }
+
+            .message-container {
+                grid-template-columns: 1fr;
+            }
+
+            .message-list {
+                min-height: 400px;
+            }
+
+            .chat-card {
+                min-height: 600px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+
+        @media(max-width: 600px) {
+
+            .page-header {
+                align-items: flex-start;
+            }
+
+            .page-header h1 {
+                font-size: 25px;
+            }
+
+            .topbar {
+                padding: 0 18px;
+            }
+
+            .profile-name {
+                display: none;
+            }
+
+            .chat-body {
+                padding: 15px;
+            }
+
+            .bubble {
+                max-width: 82%;
+            }
+
+            .chat-input {
+                padding: 12px;
+            }
+
+            .send-btn {
+                padding: 0 13px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ==========================================
+         SIDEBAR
+    =========================================== -->
+
+    <aside class="sidebar">
+
+        <!-- LOGO -->
+
+        <div class="logo-area">
+
+            <div class="logo-icon">
+
+                <svg viewBox="0 0 100 100">
+
+                    <path
+                        d="M50 7 L82 19 V43
+                        C82 65 69 82 50 92
+                        C31 82 18 65 18 43
+                        V19 Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="6"
+                    />
+
+                    <path
+                        d="M35 48 L46 59 L67 36"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+
+                </svg>
+
+            </div>
+
+            <div class="logo-text">
+
+                <h2>
+                    Scan<span>Sure</span>
+                </h2>
+
+                <p>
+                    Admin Panel
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- NAVIGATION -->
+
+        <nav class="nav">
+
+            <a href="/admin_dashboard"
+               class="nav-link">
+
+                <svg viewBox="0 0 24 24">
+
+                    <rect x="3" y="3"
+                          width="7"
+                          height="7"
+                          rx="1"/>
+
+                    <rect x="14" y="3"
+                          width="7"
+                          height="7"
+                          rx="1"/>
+
+                    <rect x="3" y="14"
+                          width="7"
+                          height="7"
+                          rx="1"/>
+
+                    <rect x="14" y="14"
+                          width="7"
+                          height="7"
+                          rx="1"/>
+
+                </svg>
+
+                <span>Dashboard</span>
+
+            </a>
+
+            <a href="/manage_users"
+               class="nav-link">
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+
+                    <circle cx="9" cy="7" r="4"/>
+
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+
+                </svg>
+
+                <span>Manage Users</span>
+
+            </a>
+
+            <a href="/admin_product_scan"
+               class="nav-link">
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+
+                    <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+
+                    <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+
+                    <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+
+                    <circle cx="12" cy="12" r="3"/>
+
+                </svg>
+
+                <span>Product Scans</span>
+
+            </a>
+
+            <a href="/admin_reports"
+               class="nav-link">
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M5 21V4"/>
+
+                    <path d="M5 5h13l-2 4 2 4H5"/>
+
+                </svg>
+
+                <span>Reports</span>
+
+            </a>
+
+            <a href="/admin_messages"
+               class="nav-link active">
+
+                <svg viewBox="0 0 24 24">
+
+                    <rect
+                        x="3"
+                        y="5"
+                        width="18"
+                        height="14"
+                        rx="2"
+                    />
+
+                    <path d="M3 7l9 6 9-6"/>
+
+                </svg>
+
+                <span>Messages</span>
+
+            </a>
+
+        </nav>
+
+        <!-- LOGOUT -->
+
+        <div class="logout">
+
+            <a href="/logout">
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M10 17l5-5-5-5"/>
+
+                    <path d="M15 12H3"/>
+
+                    <path d="M21 19V5a2 2 0 0 0-2-2h-7"/>
+
+                </svg>
+
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ==========================================
+         MAIN
+    =========================================== -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                type="button">
+
+                <svg viewBox="0 0 24 24">
+
+                    <path d="M4 6h16"/>
+                    <path d="M4 12h16"/>
+                    <path d="M4 18h16"/>
+
+                </svg>
+
+            </button>
+
+            <div class="top-right">
+
+                <!-- NOTIFICATION -->
+
+                <div class="notification">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M18 8a6 6 0 0 0-12 0
+                            c0 7-3 7-3 9h18
+                            c0-2-3-2-3-9"
+                        />
+
+                        <path d="M10 21h4"/>
+
+                    </svg>
+
+                    <span class="badge">
+                        !
+                    </span>
+
+                </div>
+
+                <!-- PROFILE -->
+
+                <div class="profile-wrapper">
+
+                    <button
+                        class="profile"
+                        id="profileBtn"
+                        type="button">
+
+                        <div class="avatar">
+
+                            {{ admin_name[0]|upper }}
+
+                        </div>
+
+                        <span class="profile-name">
+
+                            {{ admin_name }}
+
+                        </span>
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path d="m6 9 6 6 6-6"/>
+
+                        </svg>
+
+                    </button>
+
+                    <div
+                        class="profile-dropdown"
+                        id="profileDropdown">
+
+                        <a href="#">
+                            👤 Admin Profile
+                        </a>
+
+                        <a href="/logout">
+                            🚪 Logout
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <div class="content">
+
+            <!-- PAGE HEADER -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>
+                        Messages
+                    </h1>
+
+                    <p>
+                        Manage user messages and support conversations.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MESSAGE SECTION -->
+
+            <div class="message-container">
+
+
+                <!-- ==================================
+                     MESSAGE LIST
+                =================================== -->
+
+                <div class="message-list">
+
+                    <div class="list-header">
+
+                        <h2>
+                            Conversations
+                        </h2>
+
+                        <div class="search-box">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <circle
+                                    cx="11"
+                                    cy="11"
+                                    r="7"
+                                />
+
+                                <path
+                                    d="m20 20-4-4"
+                                />
+
+                            </svg>
+
+                            <input
+                                type="text"
+                                id="searchMessages"
+                                placeholder="Search messages..."
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="messages"
+                         id="messageList">
+
+
+                        <!-- MESSAGE 1 -->
+
+                        <div class="message-item active">
+
+                            <div class="user-avatar">
+                                JD
+                            </div>
+
+                            <div class="message-preview">
+
+                                <div class="message-top">
+
+                                    <span class="message-name">
+                                        Jigyasa Dhiman
+                                    </span>
+
+                                    <span class="message-time">
+                                        10:42 AM
+                                    </span>
+
+                                </div>
+
+                                <div class="message-text">
+                                    I need help with a product scan...
+                                </div>
+
+                            </div>
+
+                            <span class="unread-dot"></span>
+
+                        </div>
+
+
+                        <!-- MESSAGE 2 -->
+
+                        <div class="message-item">
+
+                            <div class="user-avatar">
+                                AS
+                            </div>
+
+                            <div class="message-preview">
+
+                                <div class="message-top">
+
+                                    <span class="message-name">
+                                        Aman Sharma
+                                    </span>
+
+                                    <span class="message-time">
+                                        09:30 AM
+                                    </span>
+
+                                </div>
+
+                                <div class="message-text">
+                                    My product result is showing pending.
+                                </div>
+
+                            </div>
+
+                            <span class="unread-dot"></span>
+
+                        </div>
+
+
+                        <!-- MESSAGE 3 -->
+
+                        <div class="message-item">
+
+                            <div class="user-avatar">
+                                RP
+                            </div>
+
+                            <div class="message-preview">
+
+                                <div class="message-top">
+
+                                    <span class="message-name">
+                                        Rahul Patel
+                                    </span>
+
+                                    <span class="message-time">
+                                        Yesterday
+                                    </span>
+
+                                </div>
+
+                                <div class="message-text">
+                                    Thank you for resolving my issue.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- MESSAGE 4 -->
+
+                        <div class="message-item">
+
+                            <div class="user-avatar">
+                                NK
+                            </div>
+
+                            <div class="message-preview">
+
+                                <div class="message-top">
+
+                                    <span class="message-name">
+                                        Neha Kapoor
+                                    </span>
+
+                                    <span class="message-time">
+                                        Yesterday
+                                    </span>
+
+                                </div>
+
+                                <div class="message-text">
+                                    Can you verify this product?
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- MESSAGE 5 -->
+
+                        <div class="message-item">
+
+                            <div class="user-avatar">
+                                VS
+                            </div>
+
+                            <div class="message-preview">
+
+                                <div class="message-top">
+
+                                    <span class="message-name">
+                                        Vikram Singh
+                                    </span>
+
+                                    <span class="message-time">
+                                        08 Aug
+                                    </span>
+
+                                </div>
+
+                                <div class="message-text">
+                                    I have reported a suspicious product.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================
+                     CHAT
+                =================================== -->
+
+                <div class="chat-card">
+
+
+                    <!-- CHAT HEADER -->
+
+                    <div class="chat-header">
+
+                        <div class="chat-user">
+
+                            <div class="user-avatar">
+                                JD
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Jigyasa Dhiman
+                                </h3>
+
+                                <div class="online">
+
+                                    <span class="online-dot"></span>
+
+                                    User
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="chat-actions">
+
+                            <button
+                                class="chat-action"
+                                title="Call">
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2
+                                        19.79 19.79 0 0 1-8.63-3.07
+                                        19.5 19.5 0 0 1-6-6
+                                        19.79 19.79 0 0 1-3.07-8.67
+                                        A2 2 0 0 1 4.11 2h3
+                                        a2 2 0 0 1 2 1.72
+                                        12.84 12.84 0 0 0 .7 2.81
+                                        2 2 0 0 1-.45 2.11L8.09 9.91
+                                        a16 16 0 0 0 6 6l1.27-1.27
+                                        a2 2 0 0 1 2.11-.45
+                                        12.84 12.84 0 0 0 2.81.7
+                                        A2 2 0 0 1 22 16.92z"
+                                    />
+
+                                </svg>
+
+                            </button>
+
+                            <button
+                                class="chat-action"
+                                title="More">
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <circle
+                                        cx="5"
+                                        cy="12"
+                                        r="1"
+                                    />
+
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="1"
+                                    />
+
+                                    <circle
+                                        cx="19"
+                                        cy="12"
+                                        r="1"
+                                    />
+
+                                </svg>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CHAT BODY -->
+
+                    <div class="chat-body">
+
+
+                        <div class="date-divider">
+                            Today
+                        </div>
+
+
+                        <!-- USER MESSAGE -->
+
+                        <div class="bubble-row user">
+
+                            <div class="bubble user">
+
+                                Hello Admin, I need help with a
+                                product scan. The result is showing
+                                pending.
+
+                                <span class="bubble-time">
+                                    10:35 AM
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ADMIN MESSAGE -->
+
+                        <div class="bubble-row admin">
+
+                            <div class="bubble admin">
+
+                                Hello! Sure, I can help you.
+                                Please provide the product name
+                                or scan details.
+
+                                <span class="bubble-time">
+                                    10:37 AM
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- USER MESSAGE -->
+
+                        <div class="bubble-row user">
+
+                            <div class="bubble user">
+
+                                The product is a skincare item
+                                from ABC Cosmetics. I scanned it
+                                a few minutes ago.
+
+                                <span class="bubble-time">
+                                    10:40 AM
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ADMIN MESSAGE -->
+
+                        <div class="bubble-row admin">
+
+                            <div class="bubble admin">
+
+                                Thank you. I will check the scan
+                                record and verify the result.
+
+                                <span class="bubble-time">
+                                    10:42 AM
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- CHAT INPUT -->
+
+                    <form class="chat-input"
+                          id="messageForm">
+
+                        <button
+                            type="button"
+                            class="attach-btn">
+
+                            <svg viewBox="0 0 24 24">
+
+                                <path
+                                    d="M21.44 11.05l-9.19 9.19
+                                    a6 6 0 0 1-8.49-8.49l9.19-9.19
+                                    a4 4 0 0 1 5.66 5.66l-9.2 9.19
+                                    a2 2 0 0 1-2.83-2.83l8.49-8.48"
+                                />
+
+                            </svg>
+
+                        </button>
+
+                        <input
+                            type="text"
+                            id="messageInput"
+                            placeholder="Type your message..."
+                            autocomplete="off"
+                        >
+
+                        <button
+                            type="submit"
+                            class="send-btn">
+
+                            Send
+
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /* ==========================================
+       SIDEBAR TOGGLE
+    ========================================== */
+
+    const menuBtn =
+        document.getElementById("menuBtn");
+
+    const app =
+        document.querySelector(".app");
+
+    menuBtn.addEventListener(
+        "click",
+        function () {
+
+            app.classList.toggle(
+                "sidebar-hidden"
+            );
+
+        }
+    );
+
+
+    /* ==========================================
+       PROFILE DROPDOWN
+    ========================================== */
+
+    const profileBtn =
+        document.getElementById("profileBtn");
+
+    const profileDropdown =
+        document.getElementById("profileDropdown");
+
+    profileBtn.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+            profileDropdown.classList.toggle(
+                "show"
+            );
+
+        }
+    );
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                !profileDropdown.contains(
+                    event.target
+                )
+            ) {
+
+                profileDropdown.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* ==========================================
+       SEARCH MESSAGES
+    ========================================== */
+
+    const searchInput =
+        document.getElementById("searchMessages");
+
+    const messageItems =
+        document.querySelectorAll(".message-item");
+
+    searchInput.addEventListener(
+        "input",
+        function () {
+
+            const value =
+                this.value.toLowerCase();
+
+            messageItems.forEach(
+                function(item) {
+
+                    const text =
+                        item.innerText.toLowerCase();
+
+                    if (
+                        text.includes(value)
+                    ) {
+
+                        item.style.display =
+                            "flex";
+
+                    } else {
+
+                        item.style.display =
+                            "none";
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    /* ==========================================
+       SELECT MESSAGE
+    ========================================== */
+
+    messageItems.forEach(
+        function(item) {
+
+            item.addEventListener(
+                "click",
+                function() {
+
+                    messageItems.forEach(
+                        function(i) {
+
+                            i.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+                    this.classList.add(
+                        "active"
+                    );
+
+                    const dot =
+                        this.querySelector(
+                            ".unread-dot"
+                        );
+
+                    if(dot) {
+                        dot.remove();
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    /* ==========================================
+       SEND MESSAGE
+    ========================================== */
+
+    const messageForm =
+        document.getElementById("messageForm");
+
+    const messageInput =
+        document.getElementById("messageInput");
+
+    const chatBody =
+        document.querySelector(".chat-body");
+
+    messageForm.addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            const message =
+                messageInput.value.trim();
+
+            if(message === "") {
+                return;
+            }
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "bubble-row admin";
+
+            row.innerHTML = `
+
+                <div class="bubble admin">
+
+                    ${message}
+
+                    <span class="bubble-time">
+                        Just now
+                    </span>
+
+                </div>
+
+            `;
+
+            chatBody.appendChild(row);
+
+            messageInput.value = "";
+
+            chatBody.scrollTop =
+                chatBody.scrollHeight;
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
