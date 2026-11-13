@@ -2,13 +2,13 @@
 
 **Verify. Trust. Stay Safe.**
 
-## 📌 About the Project
+##  About the Project
 
 ScanSure is an AI-based Fake Product Detection Web Application designed to identify potentially counterfeit products using image classification techniques.
 
 The system uses a Convolutional Neural Network (CNN) with MobileNetV2 architecture to classify product images into two categories: Genuine and Fake.
 
-## 🎯 Project Objectives
+##  Project Objectives
 
 - Detect potentially fake products using AI and Machine Learning.
 - Provide product authenticity predictions.
@@ -16,7 +16,7 @@ The system uses a Convolutional Neural Network (CNN) with MobileNetV2 architectu
 - Maintain scan history for users.
 - Help users make safer purchasing decisions.
 
-## 🚀 Key Features
+##  Key Features
 
 - User Registration and Login
 - Product Image Upload
@@ -29,7 +29,7 @@ The system uses a Convolutional Neural Network (CNN) with MobileNetV2 architectu
 - Product Verification
 - Admin Management
 
-## 🧠 Machine Learning Model
+##  Machine Learning Model
 
 - Algorithm: Convolutional Neural Network (CNN)
 - Architecture: MobileNetV2
@@ -41,7 +41,7 @@ The system uses a Convolutional Neural Network (CNN) with MobileNetV2 architectu
 - Training Epochs: 10
 - Batch Size: 16
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 **Frontend:** HTML, CSS, JavaScript
 
@@ -53,7 +53,7 @@ The system uses a Convolutional Neural Network (CNN) with MobileNetV2 architectu
 
 **Tools:** VS Code, XAMPP, Git, GitHub
 
-## 📂 Project Structure
+##  Project Structure
 
 ```text
 ScanSure/
@@ -67,7 +67,7 @@ ScanSure/
 └── README.md
 ```
 
-## ⚙️ Installation and Setup
+##  Installation and Setup
 
 1. Clone the repository:
 
@@ -101,11 +101,11 @@ python app.py
 http://127.0.0.1:5000
 ```
 
-## ⚠️ Disclaimer
+##  Disclaimer
 
 ScanSure provides preliminary AI-based product classification. Its predictions should not be considered a guarantee of product authenticity.
 
-## 👩‍💻 Project Information
+##  Project Information
 
 **Project Name:** ScanSure
 
